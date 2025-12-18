@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="../static/css/StyleSesion.css">
+</head>
+<body>
+    <section class="Form-sesion">
+        <h4>Recuperar Contraseña</h4>
+        <p>Ingresa tu correo electrónico para recibir un enlace de recuperación</p>
+        <br>
+        <form id="formRecuperacion">
+            <input class="controls" type="email" id="correo" placeholder="tu@correo.com" required>
+            <input class="botons" type="submit" value="Enviar enlace de recuperación">
+        </form>
+        <p id="mensaje"></p>
+        <p><a href="/Inicio-Sesion">Volver al inicio de sesión</a></p>
+    </section>
+
+    <script>
+        document.getElementById("formRecuperacion").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const correo = document.getElementById("correo").value;
+            const mensajeDiv = document.getElementById("mensaje");
+            
+            try {
+                const response = await fetch("/solicitar-recuperacion", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ correo })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    mensajeDiv.textContent = "✓ " + result.mensaje;
+                    mensajeDiv.style.color = "green";
+                    document.getElementById("formRecuperacion").style.display = "none";
+                } else {
+                    mensajeDiv.textContent = "✗ " + result.error;
+                    mensajeDiv.style.color = "red";
+                }
+            } catch (error) {
+                mensajeDiv.textContent = "Error de conexión";
+                mensajeDiv.style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>

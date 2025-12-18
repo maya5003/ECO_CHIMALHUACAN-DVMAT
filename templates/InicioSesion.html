@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesion</title>
+    <link rel="stylesheet" href="../static/css/StyleSesion.css">
+</head>
+<body>
+    <section class="Form-sesion">
+        <h4>Inicio de sesion</h4>
+        <form id="formInicioSesion">
+            <input class="controls" type="text" name="usuario" id="usuario" placeholder="usuario" required>
+            <input class="controls" type="password" name="contraseña" id="contraseña" placeholder="ingresa tu contraseña" required>
+            <input class="botons" type="submit" value="Inicio de sesion">
+        </form>
+        <p><a href="/Olvide-Contraseña">¿Se te olvido tu contraseña?</a></p>
+        <p id="mensaje"></p>
+    </section>
+
+    <script>
+        document.getElementById("formInicioSesion").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const usuario = document.getElementById("usuario").value;
+            const contraseña = document.getElementById("contraseña").value;
+            const mensajeDiv = document.getElementById("mensaje");
+            
+            try {
+                const response = await fetch("/iniciar-sesion", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usuario, contraseña })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    mensajeDiv.textContent = "✓ " + result.mensaje;
+                    mensajeDiv.style.color = "green";
+                    setTimeout(() => window.location.href = "/", 2000);
+                } else {
+                    mensajeDiv.textContent = "✗ " + result.error;
+                    mensajeDiv.style.color = "red";
+                }
+            } catch (error) {
+                mensajeDiv.textContent = "Error de conexión";
+                mensajeDiv.style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>

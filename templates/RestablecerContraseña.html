@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña</title>
+    <link rel="stylesheet" href="../static/css/StyleSesion.css">
+</head>
+<body>
+    <section class="Form-sesion">
+        <h4>Restablecer Contraseña</h4>
+        <p>Bienvenido <strong id="usuarioNombre"></strong></p>
+        <form id="formRestablecer">
+            <input class="controls" type="password" id="nueva_contraseña" placeholder="Nueva contraseña" required>
+            <input class="controls" type="password" id="confirmar_contraseña" placeholder="Confirmar contraseña" required>
+            <input class="botons" type="submit" value="Restablecer Contraseña">
+        </form>
+        <p id="mensaje"></p>
+    </section>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = "{{ token }}";
+        const usuario = "{{ usuario }}";
+        
+        document.getElementById("usuarioNombre").textContent = usuario;
+        
+        document.getElementById("formRestablecer").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const nueva_contraseña = document.getElementById("nueva_contraseña").value;
+            const confirmar_contraseña = document.getElementById("confirmar_contraseña").value;
+            const mensajeDiv = document.getElementById("mensaje");
+            
+            try {
+                const response = await fetch("/restablecer-contraseña", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token, nueva_contraseña, confirmar_contraseña })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    mensajeDiv.textContent = "✓ " + result.mensaje;
+                    mensajeDiv.style.color = "green";
+                    setTimeout(() => window.location.href = "/Inicio-Sesion", 2000);
+                } else {
+                    mensajeDiv.textContent = "✗ " + result.error;
+                    mensajeDiv.style.color = "red";
+                }
+            } catch (error) {
+                mensajeDiv.textContent = "Error de conexión";
+                mensajeDiv.style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>

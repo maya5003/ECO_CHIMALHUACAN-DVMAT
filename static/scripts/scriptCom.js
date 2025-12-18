@@ -1,0 +1,84 @@
+const form = document.getElementById("formRegistro");
+const historialLista = document.getElementById("listaHistorial");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const correo = document.getElementById("Comentario").value.trim();
+    const usuario = document.getElementById("usuario").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!correo || !usuario || !password) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error, correo electronico o usuario invalido"
+        });
+        return;
+    }
+
+    if (!correo.includes("@")) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error, correo electronico o usuario invalido"
+        });
+        return;
+    }
+
+
+    const emailValido = /\S+@\S+\.\S+/.test(correo);
+    if (!emailValido) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error, correo electronico o usuario invalido"
+        });
+        return;
+    }
+
+    const respuesta = await fetch("/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correo, usuario, password }),
+    });
+
+    const data = await respuesta.json();
+
+    if (data.error) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error, correo electronico o usuario invalido"
+        });
+        return;
+    }
+
+    Swal.fire({
+        icon: "success",
+        title: "Envio, completado",
+        timer: 1500,
+        showConfirmButton: false
+    });
+
+    actualizarHistorial(data.historial);
+});
+
+function actualizarHistorial(historial) {
+    if (!historialLista) return; 
+    historialLista.innerHTML = "";
+    historial.forEach((r) => {
+        let li = document.createElement("li");
+        li.textContent = `${r.correo} — ${r.password}`;
+        historialLista.appendChild(li);
+    });
+}
+
+function mostrarHistorial() {
+    const contenido = historialLista ? historialLista.innerHTML : "";
+    Swal.fire({
+        title: "Historial",
+        html: contenido || "<i>No hay registros todavía</i>",
+        width: 400
+    });
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lecturas</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../static/css/StyleForms.css">
+</head>
+<body>
+    <section class="Form-sesion">
+        <h4>Comentarios de las lecturas</h4>
+        <form id="formRegistro" novalidate>
+            <input class="controls" type="text" id="usuario" placeholder="Nombre del usuario(s)" required>
+            <input class="controls" type="text" id="correo" placeholder="¿Que lectura te gusto mas?" required>
+            <input class="controls" type="text" id="password" placeholder="¿Que autor fue tu favorita?" required>
+            <input class="controls" type="text" id="pregunta1" placeholder="¿Te gustaria un tema en especial?" required>
+            <h1>Califica las lecturas:</h1><br>
+            <input type="radio" value="regular" id="regular" name="Calificacion" checked>
+            <label for="regular">regulares</label>
+            <input type="radio" value="Bien" id="Bien" name="Calificacion">
+            <label for="Bien">Buenas</label>
+            <input type="radio" value="Excelente" id="Excelente" name="Calificacion">
+            <label for="Excelente">Excelentes</label>
+            <button id="btnRegistrar" type="submit">Eniviar</button>
+        </form>
+
+    <script src="../static/scripts/scriptCom.js"></script>
+</body>
+</html>

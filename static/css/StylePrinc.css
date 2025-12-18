@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(125deg, rgba(34, 129, 10, 0.631), rgb(16, 120, 168));
+    min-height: 100vh;
+
+    /* ajuste para capa de tiles */
+    position: relative;
+    z-index: 0;
+
+    --tile-size: 30px; 
+    --gap: 64px;
+    --step: calc(var(--tile-size) + var(--gap));
+    --tiles-opacity: 0.4; 
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--tiles-opacity);
+    background-image:
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
+        url("../img/StickPrinc.png");
+
+    background-repeat:
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+
+    background-size:
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
+        var(--tile-size) var(--tile-size);
+
+    background-position:
+        0 0,
+        calc(1 * var(--step)) calc(1 * var(--step)),
+        calc(2 * var(--step)) calc(2 * var(--step)),
+        calc(3 * var(--step)) calc(3 * var(--step)),
+        calc(4 * var(--step)) calc(4 * var(--step)),
+
+        0 calc(1 * var(--step)),
+        calc(1 * var(--step)) calc(2 * var(--step)),
+        calc(2 * var(--step)) calc(3 * var(--step)),
+        calc(3 * var(--step)) calc(4 * var(--step)),
+        calc(4 * var(--step)) calc(5 * var(--step)),
+
+        0 calc(2 * var(--step)),
+        calc(1 * var(--step)) calc(3 * var(--step)),
+        calc(2 * var(--step)) calc(4 * var(--step)),
+        calc(3 * var(--step)) calc(5 * var(--step)),
+        calc(4 * var(--step)) calc(6 * var(--step)),
+
+        0 calc(3 * var(--step)),
+        calc(1 * var(--step)) calc(4 * var(--step)),
+        calc(2 * var(--step)) calc(5 * var(--step)),
+        calc(3 * var(--step)) calc(6 * var(--step)),
+        calc(4 * var(--step)) calc(7 * var(--step)),
+
+        0 calc(4 * var(--step)),
+        calc(1 * var(--step)) calc(5 * var(--step)),
+        calc(2 * var(--step)) calc(6 * var(--step)),
+        calc(3 * var(--step)) calc(7 * var(--step)),
+        calc(4 * var(--step)) calc(8 * var(--step)),
+
+        0 calc(5 * var(--step)),
+        calc(1 * var(--step)) calc(6 * var(--step)),
+        calc(2 * var(--step)) calc(7 * var(--step)),
+        calc(3 * var(--step)) calc(8 * var(--step)),
+        calc(4 * var(--step)) calc(9 * var(--step)),
+
+        0 calc(6 * var(--step)),
+        calc(1 * var(--step)) calc(7 * var(--step)),
+        calc(2 * var(--step)) calc(8 * var(--step)),
+        calc(3 * var(--step)) calc(9 * var(--step)),
+        calc(4 * var(--step)) calc(10 * var(--step));
+
+    background-attachment: fixed;
+    mix-blend-mode: normal;
+}
+
+*,
+*:before,
+*:after { position: relative; z-index: 1; }
+
+.hero-container {
+    position: relative;
+    width: 100%;
+}
+
+.hero-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.btn-hero {
+    position: absolute;
+    left: 90%;
+    transform: translateX(-50%);
+    padding: 12px 30px;
+    background-color: #336600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn-hero:first-of-type {
+    top: 5%;
+}
+
+.btn-registro {
+    top: 25%;
+}
+
+p {
+    max-width: 900px;
+    margin: 5px 0 5px 15px;
+    background: rgba(39, 157, 225, 0.3);
+    border-radius: 10px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 24px rgba(0, 6, 39, 0.15);
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.sobre-nos p {
+    color: #9ed5ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.intro {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 5px 0 5px 15px;
+}
+
+.sobre-nos .intro-img {
+    width: 250px;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 8px;
+    display: block;
+}
+
+@media (max-width: 700px) {
+    .sobre-nos .intro {
+        flex-direction: column;
+    }
+
+    .sobre-nos .intro-img {
+        width: 100%;
+        max-width: 380px;
+        margin-top: 15px;
+    }
+}
+
+h1 {
+    text-align: left;
+    font-size: 2.5em;
+    margin-top: 25px;
+    margin-left: 15px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px #330033;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+h2 {
+    text-align: left;
+    font-size: 2em;
+    margin-top: 20px;
+    margin-left: 10px;
+    letter-spacing: 0.5px;
+    color: #1a0ba1;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.74);
+}
+
+hr {
+    border: none;
+    height: 5px;
+    background: linear-gradient(90deg, rgba(34, 129, 10, 0.631), rgb(8, 90, 128));
+    margin: 10px auto;
+    width: 100%;
+    border-radius: 4px;
+}
+
+ul {
+    max-width: 900px;
+    margin: 20px 0 20px 15px;
+    padding-left: 40px;
+    list-style: none;
+}
+
+li {
+    margin: 12px 0;
+    padding: 10px 15px;
+    background: rgba(37, 177, 227, 0.35);
+    border-left: 4px solid #293cbc67;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+li:before {
+    content: "✓ ";
+    color: #293cbc67;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+a {
+    color: #3929e6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #190974;
+    text-decoration: underline;
+}
+
+.main-menu {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 15px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+}
+
+.main-menu a {
+    display: inline-block;
+    padding: 10px 16px;
+    background: rgba(51, 102, 0, 0.95);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.18s ease, transform 0.08s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.main-menu a:hover,
+.main-menu a:focus {
+    background: #4c9a00;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.tooltip-popover {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.popover-title {
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #07032b;
+    border-bottom: 2px solid #336600;
+    padding-bottom: 8px;
+}
+
+.tooltip-popover ul {
+    margin: 0;
+    padding-left: 18px;
+    list-style: none;
+}
+
+.tooltip-popover li {
+    margin: 6px 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-weight: 500;
+    color: #0b254d;
+    font-size: 0.95em;
+}
+
+.tooltip-popover li:before {
+    content: "• ";
+    color: #336600;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+@media (max-width: 700px) {
+    .tooltip-popover {
+        position: fixed;
+        left: 8px !important;
+        right: 8px;
+        top: auto !important;
+        bottom: 16px;
+        max-width: calc(100% - 32px);
+    }
+}

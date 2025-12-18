@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>usuarios</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../static/css/StyleForms.css">
+</head>
+
+<body>
+    <section class="Form-historias">
+        <h4>Historias de usuario</h4>
+        <form id="form_HistoriasUsuario" novalidate>
+            <input class="controls" type="text" id="usuario" placeholder="Nombre del usuario(s)" required>
+            <input class="controls" type="text" id="HistUtiles" placeholder="¿Las historias son utiles?" required>
+            <input class="controls" type="text" id="HistPropias" placeholder="¿Te gustaria contarnos tu historia?"
+                required>
+            <input class="controls" type="text" id="HistLike" placeholder="¿Cual historia te gusto mas?" required>
+            <h1>Califica las historias:</h1><br>
+            <input type="radio" value="regular" id="regular" name="Calificacion" checked>
+            <label for="regular">regulares</label>
+            <input type="radio" value="Bien" id="Bien" name="Calificacion">
+            <label for="Bien">Buenas</label>
+            <input type="radio" value="Excelente" id="Excelente" name="Calificacion">
+            <label for="Excelente">Excelentes</label>
+            <button id="btnRegistrar" type="submit">Eniviar</button>
+        </form>
+
+        <script>
+            document.getElementById("form_HistoriasUsuario").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const usuario = document.getElementById("usuario").value;
+                const HistoriasUtiles = document.getElementById("contraseña").value;
+                const HistoriasPropias = document.getElementById("HistPropias");
+                const HistoriasFav = document.getElementById("HistLike");
+
+                try {
+                    const response = await fetch("/iniciar-sesion", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ usuario, contraseña })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        mensajeDiv.textContent = "✓ " + result.mensaje;
+                        mensajeDiv.style.color = "green";
+                        setTimeout(() => window.location.href = "/", 2000);
+                    } else {
+                        mensajeDiv.textContent = "✗ " + result.error;
+                        mensajeDiv.style.color = "red";
+                    }
+                } catch (error) {
+                    mensajeDiv.textContent = "Error de conexión";
+                    mensajeDiv.style.color = "red";
+                }
+            });
+        </script>
+</body>
+
+</html>

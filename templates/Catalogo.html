@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>proyecto pec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/StyleCat.css') }}">
+ </head>
+<body>
+
+<header>
+    <h1>proyecto pec</h1>
+</header>
+
+<div class="lista">
+    {% for p in productos %}
+    <section class="item">
+        <img src="{{ url_for('static', filename='img/' + p.img) }}">
+        <div class="info">
+            <h2>{{ p.nombre }}</h2>
+            <p>{{ p.descripcion }}</p>
+            <button onclick="mostrarMensaje('{{ p.nombre }}')">Ver más</button>
+        </div>
+    </section>
+    {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='script/ScriptCat.js') }}"></script>
+</body>
+</html>
