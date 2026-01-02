@@ -1,45 +1,120 @@
 <html>
-    <head>
-        <title>Lecturas Eco</title>
-        <link rel="stylesheet" href="../static/css/StylePrinc.css">
-    </head>
-    <body>
-        <img src="../static/img/Lecturas_Portada.png" alt="Lecturas_Portada" style="width:100%; height:auto; display:block;">
-        <div style="display: flex; gap: 20px; align-items: flex-start; margin: 5px 0 5px 15px;">
-            <div style="flex: 1;">
-                <h2>Lecturas que te recomendamos leer para mejorar la comprension del tema</h2>
-                <ul>
-                    <li>
-                        introduccion a la Ecologia <br>
-                        Autor: Dr. Carlos Rivas <br>
-                        Descripcion: *Falta descripcion* <br>
-                        Link: <a href="https://www.example.com/introduccion-a-la-ecologia" target="_blank">Introducción a la Ecología</a>
-                    </li>
-                    <li>
-                        Ecosistemas y sus componentes <br>
-                        Autor: Mtra. Elena Martínez <br>
-                        Descripcion: *Falta descripcion* <br>
-                        Link: <a href="https://www.example.com/ecosistemas-y-sus-componentes" target="_blank">Ecosistemas y sus componentes</a>
-                    </li>
-                    <li>
-                        El impacto Humano en el medio Ambiente <br>
-                        Autor: Ing. Roberto García <br>
-                        Descripcion: *Falta descripcion* <br>
-                        link: <a href="https://www.example.com/el-impacto-humano-en-el-medio-ambiente" target="_blank">El impacto Humano en el medio Ambiente</a>
-                    </li>
-                    <li>
-                        Energías renovables y desarrollo sostenible <br>
-                        Autor: Lic. Paula Jime <br>
-                        Descripcion: *Falta descripcion* <br>
-                        link: <a href="https://www.example.com/energias-renovables-y-desarrollo-sostenible" target="_blank">Energías renovables y desarrollo sostenible</a>
-                    </li>
-                </ul>
-            </div>
-            <img src="../static/img/Lecturas_Material.png" alt="Lecturas_Material" style="width: 400px; height: auto; flex-shrink: 0;">
+
+<head>
+    <title>Lecturas Eco</title>
+    <link rel="stylesheet" href="../static/css/StylePrinc.css">
+    <script src="../static/scripts/ScriptLect.js" defer></script>
+</head>
+
+<body>
+    <img src="../static/img/Lecturas_Portada.png" alt="Lecturas_Portada"
+        style="width:100%; height:auto; display:block;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <h2>Busqueda:</h2>
+        <input type="text" id="NombreLect" placeholder="Nombre"
+            style="border-radius: 8px; font-size: 1.2em; width: 75%;">
+        <button id="btnBuscarLect" type="submit"
+            style="background: rgba(51, 102, 0, 0.95); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.18s ease, transform 0.08s ease; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18); border: none; padding: 10px 16px;">Buscar</button>
+    </div>
+    <div style="position: relative; display: inline-block; margin-top: 10px;">
+        <img src="../static/img/LecturasMaterial.png" alt="Estanteria de lecturas"
+            style="width:95%; height:auto; display:block;">
+        <img src="../static/img/LecturasMaterial_1.png" alt="Libro v_1" id="book-img"
+            style="position: absolute; top: 450px; left: 100px; width:4%; height:auto; cursor: pointer;">
+        <img src="../static/img/LecturasMaterial_2.png" alt="Libro v_2" id="book-img2"
+            style="position: absolute; top: 60px; left: 150px; width:3.3%; height:auto; cursor: pointer;">
+        <img src="../static/img/LecturasMaterial_3.png" alt="Libro v_3" id="book-img3"
+            style="position: absolute; top: 840px; left: 200px; width:2.5%; height:auto; cursor: pointer;">
+        <img src="../static/img/LecturasMaterial_2.png" alt="Libro v_4" id="book-img4"
+            style="position: absolute; top: 640px; left: 600px; width:3.3%; height:auto; cursor: pointer;">
+        <img src="../static/img/LecturasMaterial_3.png" alt="Libro v_5" id="book-img5"
+            style="position: absolute; top: 650px; left: 660px; width:2.5%; height:auto; cursor: pointer;">
+        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros"
+            style="position: absolute; top: 450px; left: 330px; width:57%; height:auto;">
+        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros 1"
+            style="position: absolute; top: 640px; left: 30px; width:57%; height:auto;">
+        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros 2"
+            style="position: absolute; top: 830px; left: 330px; width:57%; height:auto;">
+        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros 3"
+            style="position: absolute; top: 60px; left: 330px; width:57%; height:auto;">
+        <div id="book-modal"
+            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
+            <img src="../static/img/Libros/Ecologia_Y_Educacion_Ambiental.png" alt="Portada del libro"
+                style="width: 60%; height: auto; display: block; margin: 0 auto 10px;">
+            <h3>Ecologia y Educacion Ambiental</h3>
+            <p style="font-size: 0.7em;">Descripción del libro: Un libro diseñado y creado para la reforma de educación
+                ambiental. En este se nos
+                presenta la naturaleza de una forma bella, de como debemos de apreciar esos seres vivos, pues cada uno
+                es muy bello.</p>
+            <a href="https://dgep.uas.edu.mx/librosdigitales/6to_SEMESTRE/54_Ecologia_y_Educacion_Ambiental.pdf"
+                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
+            <br><br>
+            <button onclick="closeModal()"
+                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
         </div>
-        <p>
-            Si tienes algun comentario sobre las lecturas, quieres dejar una reseña sobre alguna de ellas o recomendar alguna otra, puedes hacerlo en la seccion de
-            <a href="/Comentarios-Lecturas">Comentarios y Reseñas</a>.
-        </p>
-    </body>
+        <div id="book-modal2"
+            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
+            <img src="../static/img/Libros/Te_Cuento_Mi_Ambiente.png" alt="Portada del libro"
+                style="width: 50%; height: auto; display: block; margin: 0 auto 10px;">
+            <h3>Te Cuento mi Ambiente</h3>
+            <p style="font-size: 0.7em;">Descripción del libro:Este es un libro que incluye diversos cuentos. No solo
+                infantiles. Este incluye tres apartados, el “A”, diseñado para niños de 6 a 9 años como el “B” el cuál
+                está diseñado para para niños de 9 años, como para jóvenes de 12 años. El ultimo grupo es el “C”, este
+                siendo para jóvenes de 12 a 15 años.
+                El libro presenta diversos cuentos ilustrando distintos problemas ecológicos, con imágenes ilustrativas
+                y una buena redacción.</p>
+            <a href="https://www.neuquen.edu.ar/wp-content/uploads/2021/10/Libro-de-cuento-mi-ambiente.pdf"
+                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
+            <br><br>
+            <button onclick="closeModal2()"
+                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
+        </div>
+        <div id="book-modal3"
+            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
+            <img src="../static/img/Libros/Medio_Ambiente_Y_Desarrollo.png" alt="Portada del libro"
+                style="width: 60%; height: auto; display: block; margin: 0 auto 10px;">
+            <h3>Medio Ambiente y Desarrollo</h3>
+            <p style="font-size: 0.7em;">Descripción del libro:Esta lectura nos presenta diversos puntos de interés,
+                tales como; La temática “Medio ambiente y Desarrollo”, La “Teoría Ecológica” o La revolución de “Mayo
+                del 68”. Este también nos muestra el nacimiento de distintas ramas por los resultados del desarrollo
+                industrial, tales como; El ecologismo.</p>
+            <a href="https://biblioteca.clacso.edu.ar/Republica_Dominicana/ccp/20120801053408/medioamb.pdf"
+                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
+            <br><br>
+            <button onclick="closeModal3()"
+                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
+        </div>
+        <div id="book-modal4"
+            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
+            <img src="../static/img/Libros/Fundamentos_De_Ecologia_Y_Ambiente.png" alt="Portada del libro"
+                style="width: 60%; height: auto; display: block; margin: 0 auto 10px;">
+            <h3>Fundamentos De Ecologia y Ambiente</h3>
+            <p style="font-size: 0.7em;">Descripción del libro:Este libro, dicho por sus mismos autores. Es un buen
+                libro para quienes estén empezando en temas ecológicos y el ambiente así mismo, explica los inicios de
+                esta misma desde 1973. Y como este en sus inicios era de interés político como social. </p>
+            <a href="https://ri.unlu.edu.ar/xmlui/bitstream/handle/rediunlu/1367/Ecologia%20y%20ambiente_DIGITAL.pdf?sequence=1&isAllowed=y"
+                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
+            <br><br>
+            <button onclick="closeModal4()"
+                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
+        </div>
+        <div id="book-modal5"
+            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
+            <img src="../static/img/Libros/El_Libro_Del_Reciclaje.png" alt="Portada del libro"
+                style="width: 45%; height: auto; display: block; margin: 0 auto 10px;">
+            <h3>El libro del reciclaje</h3>
+            <p style="font-size: 0.7em;">Descripción del libro:Este libro es perfecto para quienes no saben o tienen
+                conocimientos básicos sobre el reciclaje de residuos ósea basura orgánica e inorgánica. Este libro
+                también explica que son los residuos, clases y que tanto contaminan, yendo desde una simple botella,
+                hasta cantidades grandes de basura. Así mismo dándonos ejemplos de cómo separar, reciclar y usar la
+                basura si es que esta puede ser reciclada. Como ejemplos; Llantas viejas echas macetas para brotes de
+                árboles, botellas de agua que pueden ser convertidos en carros con sus mismas tapas, etc.</p>
+            <a href="https://www.gea21.com/wp-content/uploads/2022/05/Libro-del-reciclaje-Partes-I-y-II.pdf"
+                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
+            <br><br>
+            <button onclick="closeModal5()"
+                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
+        </div>
+</body>
+
 </html>

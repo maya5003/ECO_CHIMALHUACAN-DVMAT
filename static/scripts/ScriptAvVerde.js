@@ -17,13 +17,13 @@ let gameRunning = false;
 // -------------------
 
 const playerImg = new Image();
-playerImg.src = "../static/img/Juegos/player.png";
+playerImg.src = "../static/img/Juegos/Aventura_Verde/player.png";
 
 const sprites = [
-    "../static/img/Juegos/botella.png",
-    "../static/img/Juegos/lata.png",
-    "../static/img/Juegos/papel.png",
-    "../static/img/Juegos/plastico.png"
+    "../static/img/Juegos/Aventura_Verde/botella.png",
+    "../static/img/Juegos/Aventura_Verde/lata.png",
+    "../static/img/Juegos/Aventura_Verde/papel.png",
+    "../static/img/Juegos/Aventura_Verde/plastico.png"
 ];
 
 // -------------------

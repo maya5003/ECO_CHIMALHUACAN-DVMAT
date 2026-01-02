@@ -7,7 +7,6 @@ body {
     background: linear-gradient(125deg, rgba(34, 129, 10, 0.631), rgb(16, 120, 168));
     min-height: 100vh;
 
-    /* ajuste para capa de tiles */
     position: relative;
     z-index: 0;
 
@@ -16,99 +15,6 @@ body {
     --step: calc(var(--tile-size) + var(--gap));
     --tiles-opacity: 0.4; 
 }
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: var(--tiles-opacity);
-    background-image:
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png"), url("../img/StickPrinc_1.png"), url("../img/StickPrinc_2.png"),
-        url("../img/StickPrinc.png");
-
-    background-repeat:
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-
-    background-size:
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size), var(--tile-size) var(--tile-size),
-        var(--tile-size) var(--tile-size);
-
-    background-position:
-        0 0,
-        calc(1 * var(--step)) calc(1 * var(--step)),
-        calc(2 * var(--step)) calc(2 * var(--step)),
-        calc(3 * var(--step)) calc(3 * var(--step)),
-        calc(4 * var(--step)) calc(4 * var(--step)),
-
-        0 calc(1 * var(--step)),
-        calc(1 * var(--step)) calc(2 * var(--step)),
-        calc(2 * var(--step)) calc(3 * var(--step)),
-        calc(3 * var(--step)) calc(4 * var(--step)),
-        calc(4 * var(--step)) calc(5 * var(--step)),
-
-        0 calc(2 * var(--step)),
-        calc(1 * var(--step)) calc(3 * var(--step)),
-        calc(2 * var(--step)) calc(4 * var(--step)),
-        calc(3 * var(--step)) calc(5 * var(--step)),
-        calc(4 * var(--step)) calc(6 * var(--step)),
-
-        0 calc(3 * var(--step)),
-        calc(1 * var(--step)) calc(4 * var(--step)),
-        calc(2 * var(--step)) calc(5 * var(--step)),
-        calc(3 * var(--step)) calc(6 * var(--step)),
-        calc(4 * var(--step)) calc(7 * var(--step)),
-
-        0 calc(4 * var(--step)),
-        calc(1 * var(--step)) calc(5 * var(--step)),
-        calc(2 * var(--step)) calc(6 * var(--step)),
-        calc(3 * var(--step)) calc(7 * var(--step)),
-        calc(4 * var(--step)) calc(8 * var(--step)),
-
-        0 calc(5 * var(--step)),
-        calc(1 * var(--step)) calc(6 * var(--step)),
-        calc(2 * var(--step)) calc(7 * var(--step)),
-        calc(3 * var(--step)) calc(8 * var(--step)),
-        calc(4 * var(--step)) calc(9 * var(--step)),
-
-        0 calc(6 * var(--step)),
-        calc(1 * var(--step)) calc(7 * var(--step)),
-        calc(2 * var(--step)) calc(8 * var(--step)),
-        calc(3 * var(--step)) calc(9 * var(--step)),
-        calc(4 * var(--step)) calc(10 * var(--step));
-
-    background-attachment: fixed;
-    mix-blend-mode: normal;
-}
-
-*,
-*:before,
-*:after { position: relative; z-index: 1; }
 
 .hero-container {
     position: relative;

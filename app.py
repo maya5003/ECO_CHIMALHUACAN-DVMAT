@@ -4,13 +4,13 @@ import os
 from datetime import timedelta
 import secrets
 from datetime import datetime, timedelta
-#import yagmail
+import yagmail
 
 app = Flask(__name__)
-app.secret_key = "tu_clave_secreta_aqui"  # Cambiar esto por algo más seguro
+app.secret_key = "la_clave_secreta"  # Cambiar esto por algo más seguro
 app.permanent_session_lifetime = timedelta(minutes=30)
 
-"""
+
 def Enviar_Correo(Correo):
     Remitente = "eco.chima.dvmat@gmail.com"
     Contra_Rem = "mtshsfjtfagzybnh"
@@ -22,7 +22,7 @@ def Enviar_Correo(Correo):
         subject="Verificacion de correo",
         contents="Hola!, Enviamos esta correo con el fin de verificar si fueiste tu el que se registro dentro de nuestro sitio web Eco_chima.  Si fuiste tu?"
     )
-"""
+
 
 """
 PAGINAS
@@ -165,7 +165,7 @@ def Registrar():
         if conexion:
             conexion.close()
             #Envia el correo de verificacion al usuario
-            #Enviar_Correo(correo)
+            Enviar_Correo(correo)
 
 #Mostrara la plantilla del formulario de inicio de sesion
 @app.route("/Inicio-Sesion", methods=["GET"])
@@ -257,10 +257,13 @@ JUEGOS
 JUEGOS
 """
 
-@app.route("/Aventura-Verde")
-def AventuraVerde():
+@app.route("/Recicla-y-Gana")
+def Recicla_y_Gana():
     return render_template("AventuraVerde.html")
 
+@app.route("/Eco-Defensor")
+def EcoDefensor():
+    return render_template("EcoDef.html")
 
 """
 MANEJO DE CONTRASEÑA OLVIDADA
