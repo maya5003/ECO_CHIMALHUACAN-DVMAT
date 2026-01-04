@@ -9,56 +9,60 @@
 </head>
 
 <body>
-    <section class="Form-historias">
+    <section class="Form-sesion">
         <h4>Historias de usuario</h4>
-        <form id="form_HistoriasUsuario" novalidate>
+        <form id="formRegistro" novalidate>
             <input class="controls" type="text" id="usuario" placeholder="Nombre del usuario(s)" required>
-            <input class="controls" type="text" id="HistUtiles" placeholder="¿Las historias son utiles?" required>
-            <input class="controls" type="text" id="HistPropias" placeholder="¿Te gustaria contarnos tu historia?"
-                required>
-            <input class="controls" type="text" id="HistLike" placeholder="¿Cual historia te gusto mas?" required>
+            <input class="controls" type="text" id="HistUtiles" placeholder="¿Las historias son útiles?" required>
+            <input class="controls" type="text" id="HistLike" placeholder="¿Cuál historia te gustó más?" required>
+            <input class="controls" type="text" id="HistPropias" placeholder="¿Te gustaría contarnos tu historia?" required>
             <h1>Califica las historias:</h1><br>
             <input type="radio" value="regular" id="regular" name="Calificacion" checked>
-            <label for="regular">regulares</label>
+            <label for="regular">Regulares</label>
             <input type="radio" value="Bien" id="Bien" name="Calificacion">
             <label for="Bien">Buenas</label>
             <input type="radio" value="Excelente" id="Excelente" name="Calificacion">
             <label for="Excelente">Excelentes</label>
-            <button id="btnRegistrar" type="submit">Eniviar</button>
+            <button id="btnRegistrar" type="submit">Enviar</button>
         </form>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="../static/scripts/ScriptSweet.js"></script>
         <script>
-            document.getElementById("form_HistoriasUsuario").addEventListener("submit", async (e) => {
+            document.getElementById("formRegistro").addEventListener("submit", async (e) => {
                 e.preventDefault();
 
-                const usuario = document.getElementById("usuario").value;
-                const HistoriasUtiles = document.getElementById("contraseña").value;
-                const HistoriasPropias = document.getElementById("HistPropias");
-                const HistoriasFav = document.getElementById("HistLike");
+                const usuario = document.getElementById("usuario").value.trim();
+                const HistUtiles = document.getElementById("HistUtiles").value.trim();
+                const HistLike = document.getElementById("HistLike").value.trim();
+                const HistPropias = document.getElementById("HistPropias").value.trim();
+                const calificacion = document.querySelector('input[name="Calificacion"]:checked').value;
+
+                if (!usuario || !HistUtiles || !HistLike || !HistPropias) {
+                    showErrorAlert("Por favor, completa todos los campos.");
+                    return;
+                }
 
                 try {
-                    const response = await fetch("/iniciar-sesion", {
+                    const response = await fetch("/historias-usuario", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ usuario, contraseña })
+                        body: JSON.stringify({ usuario, HistUtiles, HistLike, HistPropias, calificacion })
                     });
 
                     const result = await response.json();
 
                     if (result.success) {
-                        mensajeDiv.textContent = "✓ " + result.mensaje;
-                        mensajeDiv.style.color = "green";
-                        setTimeout(() => window.location.href = "/", 2000);
+                        showSuccessAlert(result.mensaje || "Comentario enviado exitosamente.");
                     } else {
-                        mensajeDiv.textContent = "✗ " + result.error;
-                        mensajeDiv.style.color = "red";
+                        showErrorAlert(result.error || "Error al enviar el comentario.");
                     }
                 } catch (error) {
-                    mensajeDiv.textContent = "Error de conexión";
-                    mensajeDiv.style.color = "red";
+                    showErrorAlert("Error de conexión.");
                 }
             });
         </script>
+    </section>
 </body>
 
 </html>

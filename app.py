@@ -58,6 +58,10 @@ def Juegos():
 def Blog():
     return render_template("BlogEq.html")
 
+@app.route("/Centros-de-Reciclaje")
+def CentrosReciclaje():
+    return render_template("CentrosR.html")
+
 """
 FORMULARIOS
 FORMULARIOS
@@ -245,9 +249,16 @@ CATALOGO
 @app.route("/Catalogo")
 def Catalogo():
     productos = [
-        {"nombre": "Material Educativo 1", "descripcion": "Descripcion del material educativo 1", "img": "CatMaterial_1.jpeg"},
-        {"nombre": "Material Educativo 2", "descripcion": "Descripcion del material educativo 2", "img": "CatMaterial_2.jpeg"},
-        {"nombre": "Material Educativo 3", "descripcion": "Descripcion del material educativo 3", "img": "CatMaterial_3.jpeg"},
+        {"nombre": "Botellas PET", "descripcion": "Las botellas PET son el material reciclable más común en nuestras casas, lo que lo hace un material ideal para reutilizar y/o reciclar.", "img": "CatMaterial_1.jpeg"},
+        {"nombre": "Carton", "descripcion": "El cartón es un material resistente y muy divertido, no tires tus cajas de carton a la basura mejor construye algun Divertido juego con ellas y cuando te aburras, acude a tu centro de reciclaje mas cercano y reciclalas", "img": "CatMaterial_2.jpeg"},
+        {"nombre": "Plastico PVC", "descripcion": "El plastico PVC es un material muy utilizado en la industria, pero también puede ser reutilizado varias veces ademas de que puedes usarlo para crear nuevos objetos que te ayuden en tu vida cotidiana, como vasos para tomar agua.", "img": "CatMaterial_3.jpeg"},
+        {"nombre": "Cobre", "descripcion": "El cobre aun que es un material dificil de encontrar suelto, vale la pena sacar cantidades significativas de él por su precio en centros de reciclaje.", "img": "CatMaterial_4.jpeg"},
+        {"nombre": "Aluminio", "descripcion": "El aluminio podria ser unos de los marteriales mas reutilizables dentro de nuestras casas, el principal re uso de las latas de aluminio son las macetas!, ayuda a la naturaleza y planta algunas plantitas en latas y llevalas al sol", "img": "CatMaterial_5.jpeg"},
+        {"nombre": "Vidrio", "descripcion": "El vidrio es un material que unque un poco peligroso siempre sera mejor vender algun cristal roto en tu centro de recilclaje que tirarlo a la basura y aumentar el risgo de lesion a otras personas.", "img": "CatMaterial_6.jpeg"},
+        {"nombre": "Papel", "descripcion": "El papel es un material muy común en nuestras casas, por lo tanto, se acomula considerablemente en nuestras casas lo que lo hace perfecto para irlo a reciclar en algun centro de reciclaje y tener una remoneracion por este.", "img": "CatMaterial_7.jpeg"},
+        {"nombre": "Textiles", "descripcion": "Los textiles viejos como la ropa rota y vieja o algun trapo roto, siguen siendo candidatos a darles una segunda vida util como trapeador o trapo de mesa.", "img": "CatMaterial_8.jpeg"},
+        {"nombre": "Desecho electronico", "descripcion": "Es bien sabido que el desecho electronico necesita un trato especial para ser desechado de manera seguro, por lo tanto, lo mejor es llevarlo a algun centro de reciclaje para que le den un trato adecuado.", "img": "CatMaterial_9.jpeg"},
+        {"nombre": "Baterias / Pilas", "descripcion": "Al igual que el desecho electronico, las baterias y pilas necesitan un trato especial para evitar dañar el ambiente, por lo tanto, lo mejor es llevarlas a algun centro de reciclaje para que le den un trato adecuado.", "img": "CatMaterial_10.jpeg"},
     ]
     return render_template("Catalogo.html", productos=productos)
 

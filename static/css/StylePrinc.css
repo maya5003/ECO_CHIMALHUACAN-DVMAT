@@ -117,6 +117,18 @@ h2 {
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.74);
 }
 
+h3 {
+    text-align: left;
+    font-size: 1.5em;
+    margin-top: 15px;
+    margin-left: 10px;
+    letter-spacing: 0.5px;
+    color: #336600;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
 hr {
     border: none;
     height: 5px;
@@ -247,4 +259,71 @@ a:hover {
         bottom: 16px;
         max-width: calc(100% - 32px);
     }
+}
+
+/* Estilos para CentrosR.html */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.first-row {
+    margin-bottom: 60px;
+}
+
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 400px;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.image-item p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+.description {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: 600;
 }

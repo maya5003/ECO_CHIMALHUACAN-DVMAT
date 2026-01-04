@@ -18,6 +18,8 @@
         <p id="mensaje"></p>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../static/scripts/ScriptSweet.js"></script>
     <script>
         document.getElementById("formInicioSesion").addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -36,16 +38,13 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    mensajeDiv.textContent = "✓ " + result.mensaje;
-                    mensajeDiv.style.color = "green";
+                    showSuccessAlert(result.mensaje);
                     setTimeout(() => window.location.href = "/", 2000);
                 } else {
-                    mensajeDiv.textContent = "✗ " + result.error;
-                    mensajeDiv.style.color = "red";
+                    showErrorAlert(result.error);
                 }
             } catch (error) {
-                mensajeDiv.textContent = "Error de conexión";
-                mensajeDiv.style.color = "red";
+                showErrorAlert("Error de conexión");
             }
         });
     </script>
