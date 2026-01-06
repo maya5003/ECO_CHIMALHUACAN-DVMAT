@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¿Recicla o No Recicla?</title>
+    <link rel="stylesheet" href="../static/css/StyleGuardianes.css">
+</head>
+<body>
+
+<div class="game" id="pantalla-juego">
+    <h1>♻️ ¿Recicla o No Recicla?</h1>
+
+    <p>⏱️ Tiempo: <span id="tiempo">10</span>s</p>
+
+    <div id="objeto" class="objeto">Objeto</div>
+
+    <div class="botones">
+        <button onclick="responder(true)">Sí recicla</button>
+        <button onclick="responder(false)">No recicla</button>
+    </div>
+
+    <p id="mensaje"></p>
+    <p>Puntaje: <span id="puntaje">0</span></p>
+</div>
+
+<div class="game oculto" id="pantalla-ganar">
+    <h1>🎉 ¡Ganaste! 🎉</h1>
+    <p>¡Aprendiste a reciclar correctamente!</p>
+    <p>Puntaje final: <span id="puntaje-final"></span></p>
+    <button onclick="reiniciar()">Jugar otra vez</button>
+</div>
+
+<script src="../static/scripts/ScriptGuardianes.js"></script>
+</body>
+</html>

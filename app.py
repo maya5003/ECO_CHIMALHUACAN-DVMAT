@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3
 import os
 from datetime import timedelta
 import secrets
 from datetime import datetime, timedelta
 import yagmail
+import random
 
 app = Flask(__name__)
 app.secret_key = "la_clave_secreta"  # Cambiar esto por algo más seguro
@@ -275,6 +276,111 @@ def Recicla_y_Gana():
 @app.route("/Eco-Defensor")
 def EcoDefensor():
     return render_template("EcoDef.html")
+
+"""
+TRIVIA
+TRIVIA
+TRIVIA
+"""
+
+niveles = {
+    "facil": [
+        {
+            "pregunta": "¿De qué color es el contenedor para papel?",
+            "opciones": ["Azul", "Verde", "Rojo"],
+            "respuesta": "Azul"
+        },
+        {
+            "pregunta": "¿Reciclar ayuda al planeta?",
+            "opciones": ["Sí", "No", "A veces"],
+            "respuesta": "Sí"
+        }
+    ],
+    "medio": [
+        {
+            "pregunta": "¿Qué material va en el contenedor amarillo?",
+            "opciones": ["Vidrio", "Plástico", "Papel"],
+            "respuesta": "Plástico"
+        },
+        {
+            "pregunta": "¿Qué contenedor se usa para el vidrio?",
+            "opciones": ["Azul", "Verde", "Amarillo"],
+            "respuesta": "Verde"
+        }
+    ],
+    "dificil": [
+        {
+            "pregunta": "¿Qué significa reducir?",
+            "opciones": [
+                "Usar menos recursos",
+                "Separar basura",
+                "Reutilizar objetos"
+            ],
+            "respuesta": "Usar menos recursos"
+        },
+        {
+            "pregunta": "¿Cuál NO es una de las 3R?",
+            "opciones": ["Reducir", "Reciclar", "Reemplazar"],
+            "respuesta": "Reemplazar"
+        }
+    ]
+}
+
+@app.route("/Nivel")
+def nivel():
+    return render_template("TriviaNivel.html")
+
+@app.route("/Trivia", methods=["POST"])
+def Trivia():
+    nivel = request.form["nivel"]
+    preguntas = niveles[nivel]
+
+    puntaje = None
+
+    if "enviado" in request.form:
+        puntaje = 0
+        for i, p in enumerate(preguntas):
+            respuesta = request.form.get(f"pregunta_{i}")
+            if respuesta == p["respuesta"]:
+                puntaje += 1
+
+    return render_template(
+        "Trivia.html",
+        preguntas=preguntas,
+        nivel=nivel,
+        puntaje=puntaje,
+        total=len(preguntas)
+    )
+
+"""
+GUARDIANES
+GUARDIANES
+GUARDIANES
+"""
+objetos = [
+    {"nombre": "Botella de plástico", "recicla": True},
+    {"nombre": "Papel", "recicla": True},
+    {"nombre": "Cartón", "recicla": True},
+    {"nombre": "Lata", "recicla": True},
+    {"nombre": "Vidrio", "recicla": True},
+    {"nombre": "Revista", "recicla": True},
+
+    {"nombre": "Pila", "recicla": False},
+    {"nombre": "Pañal", "recicla": False},
+    {"nombre": "Cáscara de banana", "recicla": False},
+    {"nombre": "Restos de comida", "recicla": False},
+    {"nombre": "Colilla de cigarro", "recicla": False},
+    {"nombre": "Vaso sucio", "recicla": False}
+]
+
+@app.route("/Guardianes")
+def Guardianes():
+    return render_template("Guardianes.html")
+
+@app.route("/objeto")
+def obtener_objeto():
+    return jsonify(random.choice(objetos))
+
 
 """
 MANEJO DE CONTRASEÑA OLVIDADA

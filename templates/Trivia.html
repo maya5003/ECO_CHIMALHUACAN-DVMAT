@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia</title>
+    <link rel="stylesheet" href="../static/css/StyleTrivia.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h2>Nivel: {{ nivel|capitalize }}</h2>
+
+        <form method="POST" action="/Trivia">
+            <input type="hidden" name="nivel" value="{{ nivel }}">
+            <input type="hidden" name="enviado" value="1">
+
+            {% for i in range(preguntas|length) %}
+                <div class="pregunta">
+                    <strong>{{ i + 1 }}. {{ preguntas[i].pregunta }}</strong><br>
+
+                    {% for opcion in preguntas[i].opciones %}
+                        <label>
+                            <input type="radio"
+                                   name="pregunta_{{ i }}"
+                                   value="{{ opcion }}"
+                                   required>
+                            {{ opcion }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Enviar respuestas</button>
+        </form>
+
+        {% if puntaje is not none %}
+            <h3>Resultado</h3>
+            <p>Obtuviste {{ puntaje }} de {{ total }} respuestas correctas ✅</p>
+            <a href="/Nivel">Volver a jugar</a>
+        {% endif %}
+    </div>
+</body>
+</html>
