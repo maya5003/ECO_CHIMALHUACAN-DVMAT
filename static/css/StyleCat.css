@@ -1,7 +1,20 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #eef3f7;
+    background: linear-gradient(125deg, rgba(34, 129, 10, 0.631), rgb(16, 120, 168));
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.hero-container {
+    position: relative;
+    width: 100%;
+}
+
+.hero-container img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* Encabezado */
@@ -32,15 +45,15 @@ header {
 
 /* Imagen izquierda */
 .item img {
-    width: 40%;
-    height: 230px;
-    object-fit: cover;
+    width: 50%;
+    height: 350px;
+    object-fit: contain;
 }
 
 /* Texto derecha */
 .info {
     padding: 20px;
-    width: 60%;
+    width: 50%;
 }
 
 .info h2 {

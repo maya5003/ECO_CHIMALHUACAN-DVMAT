@@ -61,7 +61,7 @@ p {
 }
 
 .sobre-nos p {
-    color: #9ed5ff;
+    color: #000000;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
@@ -176,26 +176,37 @@ a:hover {
 }
 
 .main-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
-    gap: 12px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin: 20px 15px;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 10px;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 0 0 10px 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    z-index: 1000;
+}
+
+.menu-links {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
     flex-wrap: wrap;
 }
 
 .main-menu a {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 6px 12px;
     background: rgba(51, 102, 0, 0.95);
     color: #fff;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 6px;
     font-weight: 600;
+    font-size: 14px; /* Tamaño más pequeño */
     transition: background 0.18s ease, transform 0.08s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
@@ -212,35 +223,36 @@ a:hover {
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 12px;
+    padding: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
-    max-width: 300px;
+    max-width: 220px;
+    font-size: 0.9em;
 }
 
 .popover-title {
     font-weight: 700;
-    font-size: 1.1em;
-    margin-bottom: 10px;
+    font-size: 1em;
+    margin-bottom: 8px;
     color: #07032b;
     border-bottom: 2px solid #336600;
-    padding-bottom: 8px;
+    padding-bottom: 6px;
 }
 
 .tooltip-popover ul {
     margin: 0;
-    padding-left: 18px;
+    padding-left: 15px;
     list-style: none;
 }
 
 .tooltip-popover li {
-    margin: 6px 0;
+    margin: 4px 0;
     padding: 0;
     border: none;
     background: transparent;
     font-weight: 500;
     color: #0b254d;
-    font-size: 0.95em;
+    font-size: 0.85em;
 }
 
 .tooltip-popover li:before {
@@ -326,4 +338,94 @@ th, td {
 th {
     background-color: #f2f2f2;
     font-weight: 600;
+}
+
+.main-menu-static {
+    position: static;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 15px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+}
+
+.content {
+    padding-top: 140px;
+}
+
+/* Responsivo para menú */
+@media (max-width: 768px) {
+    .main-menu {
+        flex-direction: column;
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .menu-links a {
+        width: 100%;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-menu {
+        padding: 6px;
+    }
+
+    .menu-links a {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+}
+
+/* Paragraph visibility observer styles */
+.observe-element {
+    /* use CSS variables populated by JS to preserve original colors */
+    background-color: var(--orig-bg, rgba(255,255,255,0));
+    color: var(--orig-color, inherit);
+    opacity: 0.75; /* slightly transparent by default */
+    transition: background-color 360ms ease, color 360ms ease, opacity 360ms ease, transform 360ms ease, font-size 360ms ease, font-weight 360ms ease;
+}
+
+.observe-element.in-viewport {
+    /* active state: fully opaque, lighter background, darker text, larger font, bold */
+    opacity: 1;
+    background-color: var(--active-bg, rgba(255,255,255,0.08));
+    color: var(--active-color, #000);
+    transform: translateY(-2px);
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.user-profile-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font: inherit !important;
+}
+
+/* Prefer reduced-motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .observe-element,
+    .observe-element.in-viewport {
+        transition: none;
+        transform: none;
+    }
 }
