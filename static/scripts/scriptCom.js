@@ -4,36 +4,24 @@ const historialLista = document.getElementById("listaHistorial");
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const correo = document.getElementById("Comentario").value.trim();
+    const correo = document.getElementById("correo").value.trim();
     const usuario = document.getElementById("usuario").value.trim();
     const password = document.getElementById("password").value;
 
     if (!correo || !usuario || !password) {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Error, correo electronico o usuario invalido"
-        });
+        showErrorAlert("Error, correo electrónico o usuario inválido");
         return;
     }
 
     if (!correo.includes("@")) {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Error, correo electronico o usuario invalido"
-        });
+        showErrorAlert("Error, correo electrónico o usuario inválido");
         return;
     }
 
 
     const emailValido = /\S+@\S+\.\S+/.test(correo);
     if (!emailValido) {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Error, correo electronico o usuario invalido"
-        });
+        showErrorAlert("Error, correo electrónico o usuario inválido");
         return;
     }
 
@@ -46,20 +34,11 @@ form.addEventListener("submit", async (e) => {
     const data = await respuesta.json();
 
     if (data.error) {
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Error, correo electronico o usuario invalido"
-        });
+        showErrorAlert("Error, correo electrónico o usuario inválido");
         return;
     }
 
-    Swal.fire({
-        icon: "success",
-        title: "Envio, completado",
-        timer: 1500,
-        showConfirmButton: false
-    });
+    showSuccessAlert("Envío completado");
 
     actualizarHistorial(data.historial);
 });
@@ -76,9 +55,5 @@ function actualizarHistorial(historial) {
 
 function mostrarHistorial() {
     const contenido = historialLista ? historialLista.innerHTML : "";
-    Swal.fire({
-        title: "Historial",
-        html: contenido || "<i>No hay registros todavía</i>",
-        width: 400
-    });
+    showInfoAlert(contenido || "No hay registros todavía");
 }

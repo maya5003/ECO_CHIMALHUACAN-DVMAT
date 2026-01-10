@@ -2,22 +2,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.main-menu a');
     const contentDisplay = document.getElementById('content-display');
 
+    let hideTimeout;
+
     // Contenido por sección (se usa para el popover; puede adaptarse).
     const content = {
+        inicio: `
+            <p> Regresa a la pagina de inicio </p>
+        `,
         lecturas: `
             <ul>
-                <li>"Introducción a la Ecología" — Dr. Carlos Rivas</li>
-                <li>"Ecosistemas y sus componentes" — Mtra. Elena Martínez</li>
-                <li>"El impacto Humano en el medio Ambiente" — Ing. Roberto García</li>
-                <li>"Energías renovables y desarrollo sostenible" — Lic. Paula Jime</li>
+                <li>"Ecologia y Educacion Ambiental"</li>
+                <li>"Te Cuento mi Ambiente"</li>
+                <li>"Medio Ambiente y Desarrollo"</li>
+                <li>"Fundamentos De Ecologia y Ambiente"</li>
+                <li>"El libro del reciclaje"</li>
             </ul>
         `,
         entrevistas: `
             <ul>
-                <li>Educación ambiental — Dr. Ricardo Lopez</li>
-                <li>Cuidado del planeta — Carlos Mendez</li>
-                <li>Energías limpias — Sofia Ramirez</li>
-                <li>Participación juvenil — Fernanda Cruz</li>
+                <li>Contaminación de puebla — Dr. Ramón Ojeda Mestre</li>
+                <li>Contaminación de la CDMX — Dr. Malaquías López</li>
+                <li>Derecho al medio ambiente — Dr. Ramon Ojeda Mestre</li>
+                <li>Que es la contingencia ambiental — Dr. Azándar Guzmán</li>
             </ul>
         `,
         videos: `
@@ -38,6 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
         `,
         acciones: `
             <p> Descubre mas sobre DVMAT, el equipo detras del desarrollo de este sitio.</p>
+        `,
+        catalogo: `
+            <p> Explora nuestro catalogo de materiales reciclables y aprende todo lo fundamental de ellos.</p>
+        `,
+        centros: `
+            <p> Encuentra los centros de reciclaje mas cercanos a tu ubicacion y conoce sus horarios de atencion.</p>
+        `,
+        Perfil: `
+            <p> Accede a tu perfil de usuario para ver y editar tu informacion personal.</p>
         `
     };
 
@@ -47,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     popover.style.display = 'none';
     document.body.appendChild(popover);
 
+    popover.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+    popover.addEventListener('mouseleave', () => hidePopover(null));
+
     function positionPopover(target) {
         const rect = target.getBoundingClientRect();
         popover.style.left = '0px';
@@ -55,12 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const popWidth = popover.offsetWidth;
         const popHeight = popover.offsetHeight;
         const margin = 8;
-        let left = rect.left + window.scrollX;
+        let left = rect.right + window.scrollX + margin; // Posicionar a la derecha del botón
         let top = rect.bottom + window.scrollY + margin;
 
-        // Si se sale del borde derecho, empujar hacia la izquierda
+        // Si no cabe a la derecha, posicionar a la izquierda
         if (left + popWidth > window.innerWidth + window.scrollX) {
-            left = window.innerWidth + window.scrollX - popWidth - margin;
+            left = rect.left + window.scrollX - popWidth - margin;
         }
         // Si se sale por abajo de la ventana, mostrar encima del botón
         if (top + popHeight > window.innerHeight + window.scrollY) {
@@ -74,17 +92,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showPopover(button) {
+        clearTimeout(hideTimeout);
         const key = button.dataset.content;
         popover.innerHTML = `<div class="popover-title">${button.textContent}</div>${content[key] || '<p>No hay contenido.</p>'}`;
         popover.style.display = 'block';
         positionPopover(button);
         // Marcar atributo aria para accesibilidad
         button.setAttribute('aria-expanded', 'true');
+        // Preparar elementos para efectos de visibilidad
+        if (window.prepareObserveElements) {
+            window.prepareObserveElements(popover);
+        }
     }
 
     function hidePopover(button) {
-        popover.style.display = 'none';
-        if (button) button.setAttribute('aria-expanded', 'false');
+        hideTimeout = setTimeout(() => {
+            popover.style.display = 'none';
+            if (button) button.setAttribute('aria-expanded', 'false');
+        }, 150);
     }
 
     // eventos en los botones
