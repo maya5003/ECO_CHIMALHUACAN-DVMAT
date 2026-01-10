@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <title>¿Recicla o No Recicla?</title>
     <link rel="stylesheet" href="../static/css/StyleGuardianes.css">
+    <style>
+        .back-btn:hover {
+            transform: none !important;
+        }
+    </style>
 </head>
 <body>
+<button class="back-btn" style="position: absolute; top: 10px; left: 10px; width: 70px; height: 70px; border-radius: 50%; background-color: lightgreen; border: none; cursor: pointer; padding: 0;" onclick="window.history.back()"><img src="/static/img/FlechaReg.png" alt="Regresar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain;"></button>
 
 <div class="game" id="pantalla-juego">
     <h1>♻️ ¿Recicla o No Recicla?</h1>

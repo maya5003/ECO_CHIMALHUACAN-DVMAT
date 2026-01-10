@@ -1,19 +1,14 @@
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Juegos didacticos</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/StylePrinc.css">
-</head>
+{% block title %}Juegos didacticos{% endblock %}
 
-<body>
-    <img src="../static/img/Juegos_Portada.png" alt="Juegos_Portada" style="width:100%; height:auto; display:block;">
+{% block content %}
+    <img src="{{ url_for('static', filename='img/Juegos_Portada.jpg') }}" alt="Juegos_Portada" style="width:100%; height:auto; display:block;">
     <br><br>
     <div style="display:flex;gap:10px;align-items:flex-start;margin:5px;flex-wrap:wrap;">
         <div style="flex:1 1 calc(50% - 10px);min-width:180px; position: relative;">
             <a href="/Recicla-y-Gana">
-                <img src="../static/img/JuegosMaterial.png" alt="JuegosMaterial"
+                <img src="{{ url_for('static', filename='img/JuegosMaterial.png') }}" alt="JuegosMaterial"
                     style="width:100%;height:auto;display:block;margin:0;">
             </a>
             <p
@@ -25,7 +20,7 @@
 
         <div style="flex:1 1 calc(50% - 10px);min-width:180px; position: relative;">
             <a href="/Nivel">
-                <img src="../static/img/JuegosMaterial_1.png" alt="JuegosMaterial_1"
+                <img src="{{ url_for('static', filename='img/JuegosMaterial_1.png') }}" alt="JuegosMaterial_1"
                     style="width:100%;height:auto;display:block;margin:0;">
             </a>
             <p
@@ -37,7 +32,7 @@
 
         <div style="flex:1 1 calc(50% - 10px);min-width:180px; position: relative;">
             <a href="/Eco-Defensor">
-                <img src="../static/img/JuegosMaterial_2.png" alt="JuegosMaterial_2"
+                <img src="{{ url_for('static', filename='img/JuegosMaterial_2.png') }}" alt="JuegosMaterial_2"
                     style="width:100%;height:auto;display:block;margin:0;">
             </a>
             <p
@@ -50,7 +45,7 @@
 
         <div style="flex:1 1 calc(50% - 10px);min-width:180px; position: relative;">
             <a href="/Guardianes">
-                <img src="../static/img/JuegosMaterial_3.png" alt="JuegosMaterial_3"
+                <img src="{{ url_for('static', filename='img/JuegosMaterial_3.png') }}" alt="JuegosMaterial_3"
                     style="width:100%;height:auto;display:block;margin:0;">
             </a>
             <p
@@ -61,6 +56,4 @@
         </div>
     </div>
 
-</body>
-
-</html>
+{% endblock %}

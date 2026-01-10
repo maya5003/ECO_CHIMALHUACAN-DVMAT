@@ -1,125 +1,64 @@
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Lecturas Eco</title>
-    <link rel="stylesheet" href="../static/css/StylePrinc.css">
-    <script src="../static/scripts/ScriptLect.js" defer></script>
-</head>
+{% block title %}Lecturas Eco{% endblock %}
 
-<body>
-    <img src="../static/img/Lecturas_Portada.png" alt="Lecturas_Portada"
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='scripts/ScriptLect.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+    <img src="{{ url_for('static', filename='img/Lecturas_Portada.jpg') }}" alt="Lecturas_Portada"
         style="width:100%; height:auto; display:block;">
     <div style="display: flex; align-items: center; gap: 10px;">
         <h2>Busqueda:</h2>
-        <input type="text" id="NombreLect" placeholder="Nombre"
-            style="border-radius: 8px; font-size: 1.2em; width: 75%;">
+        <div style="position: relative;">
+            <input type="text" id="NombreLect" placeholder="Nombre"
+                style="border-radius: 8px; font-size: 1.2em; width: 500px;">
+            <div id="suggestions" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ccc; border-radius: 8px; max-height: 200px; overflow-y: auto; display: none; z-index: 10;"></div>
+        </div>
         <button id="btnBuscarLect" type="submit"
             style="background: rgba(51, 102, 0, 0.95); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.18s ease, transform 0.08s ease; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18); border: none; padding: 10px 16px;">Buscar</button>
     </div>
-    <div style="position: relative; display: inline-block; margin-top: 10px;">
-        <img src="../static/img/LecturasMaterial.png" alt="Estanteria de lecturas"
-            style="width:95%; height:auto; display:block;">
-        <img src="../static/img/LecturasMaterial_1.png" alt="Libro v_1" id="book-img"
-            style="position: absolute; top: 470px; left: 100px; width:4%; height:auto; cursor: pointer;" data-title="Ecologia y Educacion Ambiental">
-        <img src="../static/img/LecturasMaterial_2.png" alt="Libro v_2" id="book-img2"
-            style="position: absolute; top: 60px; left: 150px; width:3.3%; height:auto; cursor: pointer;" data-title="Te Cuento mi Ambiente">
-        <img src="../static/img/LecturasMaterial_3.png" alt="Libro v_3" id="book-img3"
-            style="position: absolute; top: 890px; left: 200px; width:2.5%; height:auto; cursor: pointer;" data-title="Medio Ambiente y Desarrollo">
-        <img src="../static/img/LecturasMaterial_2.png" alt="Libro v_4" id="book-img4"
-            style="position: absolute; top: 680px; left: 600px; width:3.3%; height:auto; cursor: pointer;" data-title="Fundamentos De Ecologia y Ambiente">
-        <img src="../static/img/LecturasMaterial_3.png" alt="Libro v_5" id="book-img5"
-            style="position: absolute; top: 680px; left: 660px; width:2.5%; height:auto; cursor: pointer;" data-title="El libro del reciclaje">
-        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros"
-            style="position: absolute; top: 480px; left: 350px; width:53%; height:auto;">
-        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros 1"
-            style="position: absolute; top: 690px; left: 30px; width:53%; height:auto;">
-        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros 2"
-            style="position: absolute; top: 890px; left: 350px; width:53%; height:auto;">
-        <img src="../static/img/LecturasMaterial_4.png" alt="fila de libros 3"
-            style="position: absolute; top: 65px; left: 350px; width:53%; height:auto;">
-        <div id="book-modal"
-            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
-            <img src="../static/img/Libros/Ecologia_Y_Educacion_Ambiental.png" alt="Portada del libro"
-                style="width: 60%; height: auto; display: block; margin: 0 auto 10px;">
-            <h3>Ecologia y Educacion Ambiental</h3>
-            <p style="font-size: 0.7em;">Descripción del libro: Un libro diseñado y creado para la reforma de educación
-                ambiental. En este se nos
-                presenta la naturaleza de una forma bella, de como debemos de apreciar esos seres vivos, pues cada uno
-                es muy bello.</p>
-            <a href="https://dgep.uas.edu.mx/librosdigitales/6to_SEMESTRE/54_Ecologia_y_Educacion_Ambiental.pdf"
-                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
-            <br><br>
-            <button onclick="closeModal()"
-                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
+
+    <div style="width: 40%; float: left; margin-right: 5%; margin-left: 5%; margin-bottom: 5%;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(5, auto); gap: 40px;">
+            {% for libro in libros %}
+            <div style="width: 350px; height: 625px; background: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <img src="{{ url_for('static', filename='img/Libros/' + libro.imagen) }}" alt="Portada Libro {{ libro.nombre }}" style="width: 90%; height: 65%; object-fit: cover; border-radius: 5px; display: block; margin: 0 auto;">
+                <p style="font-size: 0.7em; margin-top: 5px;">Sinopsis: {{ libro.sinopsis }} <a href="{{ libro.descarga }}" target="_blank">Descargar Libro en PDF</a></p>
+            </div>
+            {% endfor %}
         </div>
-        <div id="book-modal2"
-            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
-            <img src="../static/img/Libros/Te_Cuento_Mi_Ambiente.png" alt="Portada del libro"
-                style="width: 50%; height: auto; display: block; margin: 0 auto 10px;">
-            <h3>Te Cuento mi Ambiente</h3>
-            <p style="font-size: 0.7em;">Descripción del libro:Este es un libro que incluye diversos cuentos. No solo
-                infantiles. Este incluye tres apartados, el “A”, diseñado para niños de 6 a 9 años como el “B” el cuál
-                está diseñado para para niños de 9 años, como para jóvenes de 12 años. El ultimo grupo es el “C”, este
-                siendo para jóvenes de 12 a 15 años.
-                El libro presenta diversos cuentos ilustrando distintos problemas ecológicos, con imágenes ilustrativas
-                y una buena redacción.</p>
-            <a href="https://www.neuquen.edu.ar/wp-content/uploads/2021/10/Libro-de-cuento-mi-ambiente.pdf"
-                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
-            <br><br>
-            <button onclick="closeModal2()"
-                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
+    </div>
+
+    <div style="width: 25%; float: right; margin-right: 5%; margin-bottom: 5%;">
+        <div style="background: white; border-radius: 10px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <h3>Lista de Libros</h3>
+            <ul style="list-style-type: none; padding: 0;">
+                {% for libro in libros %}
+                <li style="margin-bottom: 40px;"><a href="{{ libro.descarga }}" target="_blank">{{ libro.nombre }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
-        <div id="book-modal3"
-            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
-            <img src="../static/img/Libros/Medio_Ambiente_Y_Desarrollo.png" alt="Portada del libro"
-                style="width: 60%; height: auto; display: block; margin: 0 auto 10px;">
-            <h3>Medio Ambiente y Desarrollo</h3>
-            <p style="font-size: 0.7em;">Descripción del libro:Esta lectura nos presenta diversos puntos de interés,
-                tales como; La temática “Medio ambiente y Desarrollo”, La “Teoría Ecológica” o La revolución de “Mayo
-                del 68”. Este también nos muestra el nacimiento de distintas ramas por los resultados del desarrollo
-                industrial, tales como; El ecologismo.</p>
-            <a href="https://biblioteca.clacso.edu.ar/Republica_Dominicana/ccp/20120801053408/medioamb.pdf"
-                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
-            <br><br>
-            <button onclick="closeModal3()"
-                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
-        </div>
-        <div id="book-modal4"
-            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
-            <img src="../static/img/Libros/Fundamentos_De_Ecologia_Y_Ambiente.png" alt="Portada del libro"
-                style="width: 60%; height: auto; display: block; margin: 0 auto 10px;">
-            <h3>Fundamentos De Ecologia y Ambiente</h3>
-            <p style="font-size: 0.7em;">Descripción del libro:Este libro, dicho por sus mismos autores. Es un buen
-                libro para quienes estén empezando en temas ecológicos y el ambiente así mismo, explica los inicios de
-                esta misma desde 1973. Y como este en sus inicios era de interés político como social. </p>
-            <a href="https://ri.unlu.edu.ar/xmlui/bitstream/handle/rediunlu/1367/Ecologia%20y%20ambiente_DIGITAL.pdf?sequence=1&isAllowed=y"
-                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
-            <br><br>
-            <button onclick="closeModal4()"
-                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
-        </div>
-        <div id="book-modal5"
-            style="display: none; position: fixed; right: 10px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid #ccc; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 1000; max-width: 300px;">
-            <img src="../static/img/Libros/El_Libro_Del_Reciclaje.png" alt="Portada del libro"
-                style="width: 45%; height: auto; display: block; margin: 0 auto 10px;">
-            <h3>El libro del reciclaje</h3>
-            <p style="font-size: 0.7em;">Descripción del libro:Este libro es perfecto para quienes no saben o tienen
-                conocimientos básicos sobre el reciclaje de residuos ósea basura orgánica e inorgánica. Este libro
-                también explica que son los residuos, clases y que tanto contaminan, yendo desde una simple botella,
-                hasta cantidades grandes de basura. Así mismo dándonos ejemplos de cómo separar, reciclar y usar la
-                basura si es que esta puede ser reciclada. Como ejemplos; Llantas viejas echas macetas para brotes de
-                árboles, botellas de agua que pueden ser convertidos en carros con sus mismas tapas, etc.</p>
-            <a href="https://www.gea21.com/wp-content/uploads/2022/05/Libro-del-reciclaje-Partes-I-y-II.pdf"
-                target="_blank" style="color: blue; text-decoration: underline;">Descargar PDF</a>
-            <br><br>
-            <button onclick="closeModal5()"
-                style="background: #336600; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cerrar</button>
-        </div>
-        <br><br>
-    <p>
+    </div>
+
+    <br><br>
+    <p style="clear: both;">
         Tienes alguna recomendacion?, reseña? o simplemente quieres compartir tu opinion sobre alguna lectura
         manda tu comentario en nuestro formulario de opiniones <a href="/Comentarios-Lecturas"> has click aqui </a>
     </p>
-</body>
 
-</html>
+    <!-- Modal para búsqueda -->
+    <div id="book-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; border-radius: 10px; padding: 20px; max-width: 500px; text-align: center;">
+            <img id="modal-img" src="" alt="Portada" style="width: 275px; height: 300px; object-fit: cover; border-radius: 5px; margin-bottom: 10px;">
+            <p id="modal-sinopsis" style="margin-bottom: 10px;"></p>
+            <a id="modal-descarga" href="" target="_blank" style="display: block; margin-bottom: 10px;">Descargar</a>
+            <button onclick="closeModal()" style="padding: 10px 20px; background: #336600; color: white; border: none; border-radius: 5px;">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+    window.libros = {{ libros | tojson }};
+    </script>
+{% endblock %}

@@ -1,110 +1,196 @@
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Videos Educativos</title>
-    <link rel="stylesheet" href="../static/css/StylePrinc.css">
-</head>
+{% block title %}Videos Educativos{% endblock %}
 
-<body>
-    <img src="../static/img/Videos_Portada.png" alt="Videos_Portada" style="width:100%; height:auto; display:block;">
-    <br><br>
-    <div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
-        <div style="flex:0 0 40%;min-width:220px;">
-            <img src="../static/img/VideosMaterial.png" alt="VideosMaterial"
-                style="width:100%;height:auto;display:block;">
-        </div>
-
-        <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
-            <h2 style="margin:0 0 8px 0;">¿Qué es la CONTAMINACIÓN y qué tipos hay?</h2>
-            <p style="margin:0;">
-                Astraway<br>
-                Este video presenta que es la contaminación como los tipos de esta. También de como afecta cada tipo de
-                contaminación al medio ambiente. <br>
-                Enlace <br>
-                <a href="https://youtu.be/zeLIGu8l9OY?si=fnnah4ChJMSPVNuJ" target="_blank"
-                    style="color: blue; text-decoration: underline;">Video en YouTube</a>
-            </p>
-        </div>
+{% block content %}
+<img src="{{ url_for('static', filename='img/Videos_Portada.jpg') }}" alt="Videos_Portada"
+    style="width:100%; height:auto; display:block;">
+<br><br>
+<div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
+    <div style="flex:0 0 40%;min-width:220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial.png') }}" alt="VideosMaterial"
+            style="width:100%;height:auto;display:block;">
     </div>
-    <div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
-        <div style="flex:0 0 40%;min-width:220px;">
-            <img src="../static/img/VideosMaterial_1.png" alt="VideosMaterial_1"
-                style="width:100%;height:auto;display:block;">
-        </div>
 
-        <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
-            <h2 style="margin:0 0 8px 0;">Nota Verde - Contaminación del aire</h2>
-            <p style="margin:0;">
-                31 Minutos<br>
-                Este video es la nota verde del programa “31 minutos”, este aunque sea un programa infantil describe
-                cosas ciertas, como por ejemplo; como el echo de quemar basura o la mínima acción de fumar puede ser muy
-                contaminante. <br>
-                Enlace <br>
-                <a href="https://youtu.be/9HHxVhZwXoQ?si=ffYK-aaxAzlq-PDs" target="_blank"
-                    style="color: blue; text-decoration: underline;">Video en YouTube</a>
-            </p>
-        </div>
+    <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
+        <h2 style="margin:0 0 8px 0;">¿Qué es la CONTAMINACIÓN y qué tipos hay?</h2>
+        <p style="margin:0;">
+            Astraway<br>
+            Este video presenta que es la contaminación como los tipos de esta. También de como afecta cada tipo de
+            contaminación al medio ambiente. <br>
+            Enlace <br>
+            <a href="https://youtu.be/zeLIGu8l9OY?si=fnnah4ChJMSPVNuJ" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
     </div>
-    <div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
-        <div style="flex:0 0 40%;min-width:220px;">
-            <img src="../static/img/VideosMaterial_2.png" alt="VideosMaterial_2"
-                style="width:100%;height:auto;display:block;">
-        </div>
-
-        <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
-            <h2 style="margin:0 0 8px 0;">Contaminación Ambiental
-            </h2>
-            <p style="margin:0;">
-                MARIO CARREON
-                <br>
-                Este video presenta una descripción mas seria como sencilla sobre los distintos tipos de contaminación.
-                <br>
-                Enlace <br>
-                <a href="https://youtu.be/3WHBQEbMbQ8?si=pyQqVGSPWvRuSci6" target="_blank"
-                    style="color: blue; text-decoration: underline;">Video en YouTube</a>
-            </p>
-        </div>
+</div>
+<div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
+    <div style="flex:0 0 40%;min-width:220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_1.png') }}" alt="VideosMaterial_1"
+            style="width:100%;height:auto;display:block;">
     </div>
-    <div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
-        <div style="flex:0 0 40%;min-width:220px;">
-            <img src="../static/img/VideosMaterial_3.png" alt="VideosMaterial_3"
-                style="width:100%;height:auto;display:block;">
-        </div>
 
-        <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
-            <h2 style="margin:0 0 8px 0;">Que es la contaminación + tipos de contaminacion
-            </h2>
-            <p style="margin:0;">
-                DETODOCURIOSO
-                <br>
-                Este describe que es la contaminación pero también explica de igual manera y muy bien detallado las
-                consecuencias. <br>
-                Enlace <br>
-                <a href="https://youtu.be/P-9SvyMWCjY?si=fMlNPHTOvdWBzkVo" target="_blank"
-                    style="color: blue; text-decoration: underline;">Video en YouTube</a>
-
-            </p>
-        </div>
+    <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
+        <h2 style="margin:0 0 8px 0;">Nota Verde - Contaminación del aire</h2>
+        <p style="margin:0;">
+            31 Minutos<br>
+            Este video es la nota verde del programa “31 minutos”, este aunque sea un programa infantil describe
+            cosas ciertas, como por ejemplo; como el echo de quemar basura o la mínima acción de fumar puede ser muy
+            contaminante. <br>
+            Enlace <br>
+            <a href="https://youtu.be/9HHxVhZwXoQ?si=ffYK-aaxAzlq-PDs" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
     </div>
-    <div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
-        <div style="flex: 0 0 40%; min-width: 220px;">
-            <img src="../static/img/VideosMaterial_4.png" alt="VideosMaterial_4"
-                style="width: 100%; height: auto; display: block;">
-        </div>
-        <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
-            <h2 style="margin: 0 0 8px 0;">Un día en la ciudad más CONTAMINADA del MUNDO
-            </h2>
-            <p style="margin: 0;">
-                Araya Vlogs
-                <br>
-                Este vídeo presenta a la ciudad más contaminada en el mundo, esto siendo preocupante pues no solo es la
-                más contaminada si no la que más contaminación crea a nivel mundial. <br>
-                Enlace <br>
-                <a href="https://youtu.be/GgIWqadiBsk?si=2ruIUKtUTHgRukMB" target="_blank"
-                    style="color: blue; text-decoration: underline;">Video en YouTube</a>
-            </p>
-        </div>
+</div>
+<div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
+    <div style="flex:0 0 40%;min-width:220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_2.png') }}" alt="VideosMaterial_2"
+            style="width:100%;height:auto;display:block;">
     </div>
-</body>
 
-</html>
+    <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
+        <h2 style="margin:0 0 8px 0;">Contaminación Ambiental
+        </h2>
+        <p style="margin:0;">
+            MARIO CARREON
+            <br>
+            Este video presenta una descripción mas seria como sencilla sobre los distintos tipos de contaminación.
+            <br>
+            Enlace <br>
+            <a href="https://youtu.be/3WHBQEbMbQ8?si=pyQqVGSPWvRuSci6" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+<div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
+    <div style="flex:0 0 40%;min-width:220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_3.png') }}" alt="VideosMaterial_3"
+            style="width:100%;height:auto;display:block;">
+    </div>
+
+    <div style="flex:1 1 55%;min-width:220px;display:flex;flex-direction:column;">
+        <h2 style="margin:0 0 8px 0;">Que es la contaminación + tipos de contaminacion
+        </h2>
+        <p style="margin:0;">
+            DETODOCURIOSO
+            <br>
+            Este describe que es la contaminación pero también explica de igual manera y muy bien detallado las
+            consecuencias. <br>
+            Enlace <br>
+            <a href="https://youtu.be/P-9SvyMWCjY?si=fMlNPHTOvdWBzkVo" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+
+        </p>
+    </div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
+    <div style="flex: 0 0 40%; min-width: 220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_4.png') }}" alt="VideosMaterial_4"
+            style="width: 100%; height: auto; display: block;">
+    </div>
+    <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
+        <h2 style="margin: 0 0 8px 0;">Un día en la ciudad más CONTAMINADA del MUNDO
+        </h2>
+        <p style="margin: 0;">
+            Araya Vlogs
+            <br>
+            Este vídeo presenta a la ciudad más contaminada en el mundo, esto siendo preocupante pues no solo es la
+            más contaminada si no la que más contaminación crea a nivel mundial. <br>
+            Enlace <br>
+            <a href="https://youtu.be/GgIWqadiBsk?si=2ruIUKtUTHgRukMB" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
+    <div style="flex: 0 0 40%; min-width: 220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_5.png') }}" alt="VideosMaterial_4"
+            style="width: 100%; height: auto; display: block;">
+    </div>
+    <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
+        <h2 style="margin: 0 0 8px 0;">Contaminación ambiental. Para niños
+        </h2>
+        <p style="margin: 0;">
+            Educa LB 
+            <br>
+            Este video explica detalladamente que es la contaminación ambiental, como evitarla y los riesgos que esta genera. <br>
+            Enlace <br>
+            <a href="https://youtu.be/fjWNUWvQxAo?si=15pkdG5i9n6RNG5L" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
+    <div style="flex: 0 0 40%; min-width: 220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_6.png') }}" alt="VideosMaterial_4"
+            style="width: 100%; height: auto; display: block;">
+    </div>
+    <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
+        <h2 style="margin: 0 0 8px 0;">CONTAMINACION - TIPOS DE CONTAMINACION
+        </h2>
+        <p style="margin: 0;">
+            Rocio Carreon
+            <br>
+            Este video muestra cada uno del los tipos de contaminación ambiental que existen, cuales son las causas y sus consecuencias a corto y largo plazo. <br>
+            Enlace <br>
+            <a href="https://youtu.be/3XVx9URQprw?si=n3PUzH2In53QduHu" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
+    <div style="flex: 0 0 40%; min-width: 220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_7.png') }}" alt="VideosMaterial_4"
+            style="width: 100%; height: auto; display: block;">
+    </div>
+    <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
+        <h2 style="margin: 0 0 8px 0;"> ENERGÍA NUCLEAR ventajas y desventajas - DOCUMENTAL de energía nuclear 
+        </h2>
+        <p style="margin: 0;">
+            EcologiaVerde
+            <br>
+            En el video nos explican las ventajas y desventajas de una de las energías más limpias y poderosas del mundo la cual ni siquiera produce CO2. Pero una de las mas peligrosas. <br>
+            Enlace <br>
+            <a href="https://youtu.be/dWc6PUiRZhA?si=_7SjkB2Xm3c-CSny" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
+    <div style="flex: 0 0 40%; min-width: 220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_8.png') }}" alt="VideosMaterial_4"
+            style="width: 100%; height: auto; display: block;">
+    </div>
+    <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
+        <h2 style="margin: 0 0 8px 0;">Reducir, Reutilizar y Reciclar. Para mejorar el mundo | Videos Educativos para Niños
+        </h2>
+        <p style="margin: 0;">
+            Happy Learning Español
+            <br>
+            Este video nos explican cómo funcionan las tres r y como aplicarlas en nuestra vida cotidiana. <br>
+            Enlace <br>
+            <a href="https://youtu.be/cvakvfXj0KE?si=x4U7QoHWHx7DA0Sk" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; margin: 5px;">
+    <div style="flex: 0 0 40%; min-width: 220px;">
+        <img src="{{ url_for('static', filename='img/VideosMaterial_9.png') }}" alt="VideosMaterial_4"
+            style="width: 100%; height: auto; display: block;">
+    </div>
+    <div style="flex: 1 1 55%; min-width: 220px; display: flex; flex-direction: column;">
+        <h2 style="margin: 0 0 8px 0;">¿Qué son los ecosistemas? - Tipos de ecosistemas para niños
+        </h2>
+        <p style="margin: 0;">
+            Smile and Learn - Español
+            <br>
+            Este video nos muestra y explica que son los ecosistemas y como cuidar cada uno, también de como este seria perjudicial en el caso de que sean destruidos. <br>
+            Enlace <br>
+            <a href="https://youtu.be/usDVb2JWhHo?si=h8o_kxhpuum1yll6" target="_blank"
+                style="color: blue; text-decoration: underline;">Video en YouTube</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

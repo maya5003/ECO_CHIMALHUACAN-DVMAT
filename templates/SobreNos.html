@@ -1,64 +1,72 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Aun Mas sobre nosotros</title>
-    <link rel="stylesheet" href="../static/css/StylePrinc.css">
-</head>
+{% block body_class %}sobre-nos{% endblock %}
 
-<body class="sobre-nos"
-    style="background-image: url('../static/img/AunMas_Fondo.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-    <img src="../static/img/AunMas_Portada.png" alt="AunMas_Portada" style="width:100%; height:auto; display:block;">
-    <h2>¿Quienes somos?</h2>
-    <div class="intro">
-        <p>
-            Nuestro equipo, DVMAT, está conformado por un grupo de 5 estudiantes de programación que estamos
-            dedicados a hacer realidad todo lo que hemos soñado. Hemos sido muy marcados por la frase
-            "Si puedes soñarlo, puedes programarlo" lo que ha hecho que nos esforcemos cada día
-            más con el afán de lograr nuestras metas.
-            <br>
-            Para este proyecto en particular decidimos trabajar con una metodología ágil que es Scrum. Esta metodología
-            nos ha ayudado a organizarnos mejor como equipo y a distribuir
-            las tareas de manera equitativa, además de permitirnos adaptarnos a los cambios de manera
-            rápida y eficiente.
-        </p>
-        <img src="../static/img/AunMas_Material.jpeg" alt="AunMas_Material" class="intro-img">
-    </div>
+{% block extra_head %}
+<style>
+    body.sobre-nos {
+        background-image: url('{{ url_for('static', filename='img/AunMas_Fondo.jpeg') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<img src="{{ url_for('static', filename='img/AunMas_Portada.jpg') }}" alt="AunMas_Portada"
+    style="width:100%; height:auto; display:block;">
+<h2>¿Quienes somos?</h2>
+<div class="intro">
     <p>
-        Nuestra organización es la siguiente:
+        Nuestro equipo, DVMAT, está conformado por un grupo de 5 estudiantes de programación que estamos
+        dedicados a hacer realidad todo lo que hemos soñado. Hemos sido muy marcados por la frase
+        "Si puedes soñarlo, puedes programarlo" lo que ha hecho que nos esforcemos cada día
+        más con el afán de lograr nuestras metas.
+        <br>
+        Para este proyecto en particular decidimos trabajar con una metodología ágil que es Scrum. Esta metodología
+        nos ha ayudado a organizarnos mejor como equipo y a distribuir
+        las tareas de manera equitativa, además de permitirnos adaptarnos a los cambios de manera
+        rápida y eficiente.
     </p>
-    <br>
-    <h2>Equipo de trabajo</h2>
-    <ul>
-        <li>Maya Zavala Ángel de Jesús</li>
-        <li>Arias Martínez Ángel Eduardo</li>
-        <li>Castillo Aguilar Dylan Jonathan</li>
-        <li>Ávalos Torres Marvin</li>
-    </ul>
-    <br>
-    <h2>Scrum Master</h2>
-    <ul>
-        <li>Maya Zavala Ángel de Jesús</li>
-    </ul>
-    <br>
-    <h2>Product Owner</h2>
-    <ul>
-        <li>Camacho Regalado Brayan Alexander</li>
-    </ul>
-    <br>
-    <div style="display: flex; justify-content: center;">
-        <img src="../static/img/AunMas_Material_3.png" alt="Banner Blog-Del-Equipo" style="width: 30%; height: auto;">
-    </div>
-    <div class="intro">
-        <p>
-            Puedes saber más de nosotros y tener una vista más informal de quiénes somos a través de
-            nuestro blog de equipo en donde publicamos nuestras experiencias interesantes y cómo
-            trabajamos en el día a día no solo en el trabajo sino también mejorando el ambiente y cuidándolo
-            con las estrategias que damos a conocer aquí.
-            <a href="/Blog-Del-Equipo" target="_blank">Visita nuestro blog aquí</a>
-        </p>
-        <img src="../static/img/AunMas_Material 2.jpeg" alt="AunMas_Material2" class="intro-img">
-    </div>
-</body>
-
-</html>
+    <img src="{{ url_for('static', filename='img/AunMas_Material.jpeg') }}" alt="AunMas_Material" class="intro-img">
+</div>
+<p>
+    Nuestra organización es la siguiente:
+</p>
+<br>
+<h2>Equipo de trabajo</h2>
+<ul>
+    <li>Maya Zavala Ángel de Jesús</li>
+    <li>Arias Martínez Ángel Eduardo</li>
+    <li>Castillo Aguilar Dylan Jonathan</li>
+    <li>Ávalos Torres Marvin</li>
+</ul>
+<br>
+<h2>Scrum Master</h2>
+<ul>
+    <li>Maya Zavala Ángel de Jesús</li>
+</ul>
+<br>
+<h2>Product Owner</h2>
+<ul>
+    <li>Camacho Regalado Brayan Alexander</li>
+</ul>
+<br>
+<div style="display: flex; justify-content: center;">
+    <img src="{{ url_for('static', filename='img/AunMas_Material_3.png') }}" alt="Banner Blog-Del-Equipo"
+        style="width: 30%; height: auto;">
+</div>
+<div class="intro">
+    <p>
+        Puedes saber más de nosotros y tener una vista más informal de quiénes somos a través de
+        nuestro blog de equipo en donde publicamos nuestras experiencias interesantes y cómo
+        trabajamos en el día a día no solo en el trabajo sino también mejorando el ambiente y cuidándolo
+        con las estrategias que damos a conocer aquí.
+        <a href="/Blog-Del-Equipo" target="_blank">Visita nuestro blog aquí</a>
+    </p>
+    <img src="{{ url_for('static', filename='img/AunMas_Material 2.jpeg') }}" alt="AunMas_Material2" class="intro-img">
+</div>
+{% endblock %}

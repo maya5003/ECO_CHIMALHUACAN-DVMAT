@@ -1,14 +1,9 @@
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Entrevistas</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/StylePrinc.css">
-</head>
+{% block title %}Entrevistas{% endblock %}
 
-<body>
-    <img src="../static/img/Entrevistas_Portada.png" alt="Entrevistas_Portada" style="width: 100%; height: auto;">
+{% block content %}
+    <img src="../static/img/Entrevistas_Portada.jpg" alt="Entrevistas_Portada" style="width: 100%; height: auto;">
     <div style="display:flex;gap:10px;align-items:flex-start;margin:5px;">
         <div style="flex:0 0 40%;min-width:220px; padding-left:20px;">
             <img src="../static/img/EntrevistasMaterial.png" alt="EntrevistasMaterial"
@@ -91,4 +86,4 @@
         comentarios. <a href="/Comentarios-Entrevistas"> Comentarios para Entrevistas</a>
     </p>
 
-</html>
+{% endblock %}

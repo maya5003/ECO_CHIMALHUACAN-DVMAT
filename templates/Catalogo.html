@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo de materiales reciclables</title>
-    <link rel="stylesheet" href="../static/css/StyleCat.css">
- </head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Catalogo de materiales reciclables{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/StyleCat.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-container">
+    <img src="{{ url_for('static', filename='img/Catalogo_Portada.jpg') }}" alt="Portada Catalogo">
+</div>
 
 <header>
     <h1>Catalogo de materiales reciclables</h1>
@@ -19,11 +23,29 @@
         <div class="info">
             <h2>{{ p.nombre }}</h2>
             <p>{{ p.descripcion }}</p>
+            <h3>Ideas de reciclaje:</h3>
+            <p>{{ p.IdeasRec }}</p>
+            <h3>Tiempo de degradación:</h3>
+            <p>{{ p.TiempoDegr }}</p>
+            <h3>Características físicas:</h3>
+            <ul>
+                {% for carac in p.CaracFisc %}
+                <li>{{ carac }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Productos populares:</h3>
+            <ul>
+                {% for producto in p.ProductPop %}
+                <li>{{ producto }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </section>
     {% endfor %}
 </div>
 
-<script src="../static/scripts/ScriptCat.js"></script>
-</body>
-</html>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='scripts/ScriptCat.js') }}"></script>
+{% endblock %}

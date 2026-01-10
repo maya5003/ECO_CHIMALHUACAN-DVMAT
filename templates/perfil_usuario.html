@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - EcoChima</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/StylePrinc.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(125deg, rgba(34, 129, 10, 0.631), rgb(16, 120, 168));
+            min-height: 100vh;
+            position: relative;
+            z-index: 0;
+        }
+        .perfil-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .perfil-imagen {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .perfil-imagen img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #ccc;
+        }
+        .perfil-imagen a {
+            display: block;
+            margin-top: 10px;
+            color: #336600;
+            text-decoration: none;
+        }
+        .perfil-inputs {
+            margin-bottom: 30px;
+        }
+        .perfil-inputs input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .acciones-container {
+            background-color: #003366;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .acciones-container button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-logout {
+            background-color: yellow;
+            color: black;
+        }
+        .btn-delete {
+            background-color: red;
+            color: white;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .modal-content p {
+            margin: 0 0 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-confirm {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-cancel {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-save {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #336600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-save:hover {
+            background-color: #4c9a00;
+        }
+        .foto-modal {
+            max-width: 500px;
+        }
+        .foto-modal h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .foto-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .foto-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ccc;
+            background: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .foto-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .upload-btn {
+            background-color: #e0e0e0;
+            font-size: 30px;
+            color: #666;
+        }
+        .upload-btn:hover {
+            background-color: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" style="position: absolute; top: 10px; left: 10px; width: 70px; height: 70px; border-radius: 50%; background-color: lightgreen; border: none; cursor: pointer; padding: 0;" onclick="window.history.back()"><img src="/static/img/FlechaReg.png" alt="Regresar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain;"></button>
+
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-content">
+            <p>¿Estás seguro de querer borrar TU cuenta? Recuerda que todos los comentarios que hayas dejado seguirán ahí aun cuando hayas borrado tu cuenta.</p>
+            <div class="modal-buttons">
+                <button class="btn-confirm" onclick="confirmarBorrado()">Sí, borrar cuenta</button>
+                <button class="btn-cancel" onclick="cancelarBorrado()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="fotoModal">
+        <div class="modal-content foto-modal">
+            <h3>Seleccionar foto de perfil</h3>
+            <div class="foto-options">
+                <button class="foto-btn" onclick="cambiarFoto('PerfilMaterial.png')"><img src="/static/img/PerfilMaterial.png" alt="Actual"></button>
+                <button class="foto-btn" onclick="cambiarFoto('perfil1.png')"><img src="/static/img/perfil1.png" alt="Perfil 1"></button>
+                <button class="foto-btn" onclick="cambiarFoto('perfil2.png')"><img src="/static/img/perfil2.png" alt="Perfil 2"></button>
+                <button class="foto-btn" onclick="cambiarFoto('perfil3.png')"><img src="/static/img/perfil3.png" alt="Perfil 3"></button>
+                <button class="foto-btn" onclick="cambiarFoto('perfil4.png')"><img src="/static/img/perfil4.png" alt="Perfil 4"></button>
+                <button class="foto-btn" onclick="cambiarFoto('perfil5.png')"><img src="/static/img/perfil5.png" alt="Perfil 5"></button>
+                <label class="foto-btn upload-btn" for="fileInput">
+                    <span>+</span>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="subirFoto(event)">
+                </label>
+            </div>
+            <button class="btn-cancel" onclick="cerrarFotoModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="perfil-container">
+        <div class="perfil-imagen">
+            <img src="/static/img/{{ foto }}" alt="Foto de perfil">
+            <a href="#" onclick="abrirFotoModal()">Cambiar foto de perfil</a>
+        </div>
+        <div class="perfil-inputs">
+            <input type="text" id="inputUsuario" placeholder="Cambiar nombre de usuario" value="{{ user }}">
+            <button class="btn-save" onclick="guardarUsuario()">Guardar nombre</button>
+            <input type="password" id="inputContraseña" placeholder="Cambiar contraseña">
+            <button class="btn-save" onclick="guardarContraseña()">Guardar contraseña</button>
+        </div>
+        <div class="acciones-container">
+            <button class="btn-logout" onclick="cerrarSesion()">Cerrar sesión</button>
+            <button class="btn-delete" onclick="confirmarBorrarCuenta()">Borrar cuenta</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/ScriptSweet.js') }}"></script>
+    <script>
+        function cerrarSesion() {
+            fetch('/cerrar-sesion')
+                .then(response => {
+                    if (response.redirected) {
+                        showSuccessAlert('Se ha cerrado sesión exitosamente.');
+                        setTimeout(() => {
+                            window.location.href = response.url;
+                        }, 1500);
+                    }
+                });
+        }
+
+        function confirmarBorrarCuenta() {
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        function cancelarBorrado() {
+            document.getElementById('confirmModal').classList.remove('active');
+        }
+
+        function confirmarBorrado() {
+            document.getElementById('confirmModal').classList.remove('active');
+            fetch('/borrar-cuenta')
+                .then(response => {
+                    if (response.redirected) {
+                        showSuccessAlert('Cuenta borrada exitosamente.');
+                        setTimeout(() => {
+                            window.location.href = response.url;
+                        }, 1500);
+                    }
+                });
+        }
+
+        function abrirFotoModal() {
+            document.getElementById('fotoModal').classList.add('active');
+        }
+
+        function cerrarFotoModal() {
+            document.getElementById('fotoModal').classList.remove('active');
+        }
+
+        function cambiarFoto(foto) {
+            fetch('/cambiar-foto', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ foto: foto })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessAlert('Foto de perfil actualizada.');
+                    // Actualizar la imagen en la página
+                    document.querySelector('.perfil-imagen img').src = `/static/img/${foto}`;
+                    cerrarFotoModal();
+                } else {
+                    showErrorAlert(data.error || 'Error al cambiar foto.');
+                }
+            })
+            .catch(error => {
+                showErrorAlert('Error al cambiar foto.');
+            });
+        }
+
+        function subirFoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/subir-foto', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessAlert('Foto subida exitosamente.');
+                    // Actualizar la imagen
+                    document.querySelector('.perfil-imagen img').src = `/static/img/${data.foto}`;
+                    cerrarFotoModal();
+                } else {
+                    showErrorAlert(data.error || 'Error al subir foto.');
+                }
+            })
+            .catch(error => {
+                showErrorAlert('Error al subir foto.');
+            });
+        }
+
+        function guardarUsuario() {
+            const nuevoUsuario = document.getElementById('inputUsuario').value;
+            if (!nuevoUsuario || nuevoUsuario.trim() === '') {
+                showErrorAlert('El nombre de usuario no puede estar vacío.');
+                return;
+            }
+            fetch('/cambiar-usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ usuario: nuevoUsuario })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessAlert('Nombre de usuario actualizado exitosamente.');
+                } else {
+                    showErrorAlert(data.error || 'Error al cambiar el nombre de usuario.');
+                }
+            })
+            .catch(error => {
+                showErrorAlert('Error al cambiar el nombre de usuario.');
+            });
+        }
+
+        function guardarContraseña() {
+            const nuevaContraseña = document.getElementById('inputContraseña').value;
+            if (!nuevaContraseña || nuevaContraseña.trim() === '') {
+                showErrorAlert('La contraseña no puede estar vacía.');
+                return;
+            }
+            // Validar contraseña
+            if (nuevaContraseña.length < 8) {
+                showErrorAlert('La contraseña debe tener al menos 8 caracteres.');
+                return;
+            }
+            if (!/[A-Z]/.test(nuevaContraseña)) {
+                showErrorAlert('La contraseña debe incluir al menos una letra mayúscula.');
+                return;
+            }
+            if (!/\d/.test(nuevaContraseña)) {
+                showErrorAlert('La contraseña debe incluir al menos un número.');
+                return;
+            }
+            fetch('/cambiar-contraseña', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ contraseña: nuevaContraseña })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccessAlert('Contraseña actualizada exitosamente.');
+                    document.getElementById('inputContraseña').value = '';
+                } else {
+                    showErrorAlert(data.error || 'Error al cambiar la contraseña.');
+                }
+            })
+            .catch(error => {
+                showErrorAlert('Error al cambiar la contraseña.');
+            });
+        }
+    </script>
+</body>
+</html>

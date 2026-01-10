@@ -1,19 +1,14 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centros de Reciclaje</title>
-    <link rel="stylesheet" href="../static/css/StylePrinc.css">
-</head>
+{% block title %}Centros de Reciclaje{% endblock %}
 
-<body>
-    <img src="../static/img/CentrosR_Portada.png" alt="Portada Centros de Reciclaje" style="width: 100%; height: auto;">
+{% block content %}
+    <img src="{{ url_for('static', filename='img/CentrosR_Portada.jpg') }}" alt="Portada Centros de Reciclaje" style="width: 100%; height: auto;">
 
     <div class="image-container">
         <div class="row first-row">
             <div class="image-item">
-                <img src="../static/img/CentrosR/CentrosReMaterial.png" alt="Centro de Reciclaje 1">
+                <img src="{{ url_for('static', filename='img/CentrosR/CentrosReMaterial.png') }}" alt="Centro de Reciclaje 1">
                 <div class="description">
                     RECICLACERO FIERRO Y METALES. <br><br>
                     Ubicacion: <br>
@@ -49,7 +44,7 @@
                 </div>
             </div>
             <div class="image-item">
-                <img src="../static/img/CentrosR/CentrosReMaterial_1.png" alt="Centro de Reciclaje 2">
+                <img src="{{ url_for('static', filename='img/CentrosR/CentrosReMaterial_1.png') }}" alt="Centro de Reciclaje 2">
                 <div class="description">
                     Recicla México. <br><br>
                     Ubicacion: <br>
@@ -84,7 +79,7 @@
                 </div>
             </div>
             <div class="image-item">
-                <img src="../static/img/CentrosR/CentrosReMaterial_2.png" alt="Centro de Reciclaje 3">
+                <img src="{{ url_for('static', filename='img/CentrosR/CentrosReMaterial_2.png') }}" alt="Centro de Reciclaje 3">
                 <div class="description">
                     Planta Recicladora. <br><br>
                     Ubicacion: <br>
@@ -121,7 +116,7 @@
         </div>
         <div class="row second-row">
             <div class="image-item">
-                <img src="../static/img/CentrosR/CentrosReMaterial_3.png" alt="Centro de Reciclaje 4">
+                <img src="{{ url_for('static', filename='img/CentrosR/CentrosReMaterial_3.png') }}" alt="Centro de Reciclaje 4">
                 <div class="description">
                     Planta De Reciclaje. <br><br>
                     Ubicacion: <br>
@@ -156,7 +151,7 @@
                 </div>
             </div>
             <div class="image-item">
-                <img src="../static/img/CentrosR/CentrosReMaterial_4.png" alt="Centro de Reciclaje 5">
+                <img src="{{ url_for('static', filename='img/CentrosR/CentrosReMaterial_4.png') }}" alt="Centro de Reciclaje 5">
                 <div class="description">
                     Recicladora Peralsa. <br><br>
                     Ubicacion: <br>
@@ -193,7 +188,4 @@
         </div>
     </div>
 
-
-</body>
-
-</html>
+{% endblock %}
