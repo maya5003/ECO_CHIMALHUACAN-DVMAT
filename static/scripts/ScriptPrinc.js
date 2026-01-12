@@ -53,6 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `,
         Perfil: `
             <p> Accede a tu perfil de usuario para ver y editar tu informacion personal.</p>
+        `,
+        manualidades: `
+            <p> Aprende a crear manualidades ecologicas y sostenibles con nuestros instructivos paso a paso.</p>
         `
     };
 

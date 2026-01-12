@@ -278,7 +278,11 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 0;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .row {
@@ -286,7 +290,9 @@ a:hover {
     justify-content: center;
     gap: 50px;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .first-row {
@@ -299,6 +305,7 @@ a:hover {
     align-items: center;
     flex: 1;
     max-width: 400px;
+    min-width: 250px;
 }
 
 .image-item img {
@@ -355,7 +362,7 @@ th {
 }
 
 .content {
-    padding-top: 140px;
+    padding-top: 100px;
 }
 
 /* Responsivo para menú */

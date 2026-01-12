@@ -8,6 +8,16 @@ form.addEventListener("submit", async (e) => {
     const usuario = document.getElementById("usuario").value.trim();
     const password = document.getElementById("password").value;
 
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        Swal.fire({
+            icon: "error",
+            title: "Contraseña inválida",
+            text: "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número."
+        });
+        return;
+    }
+
     if (!correo || !usuario || !password) {
         Swal.fire({
             icon: "error",

@@ -29,6 +29,8 @@
     border: 1px solid #1f53c5;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 18px;
+    color: white;
+    font-weight: bold;
 }
 
 .Form-sesion p{
