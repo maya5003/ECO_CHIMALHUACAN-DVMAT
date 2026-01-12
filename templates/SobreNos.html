@@ -1,16 +1,28 @@
 {% extends "base.html" %}
 
-{% block body_class %}sobre-nos{% endblock %}
+{% block title %}Sobre Nosotros{% endblock %}
 
 {% block extra_head %}
 <style>
-    body.sobre-nos {
-        background-image: url('{{ url_for('static', filename='img/AunMas_Fondo.jpeg') }}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin: 0;
-        padding: 0;
+    body {
+        background: linear-gradient(125deg, #00008B, #FF1493, #8A2BE2);
+    }
+    .intro-img {
+        width: 200px !important;
+    }
+    .main-menu {
+        background: rgba(255, 255, 255, 1) !important;
+        flex-wrap: nowrap !important;
+    }
+    .menu-links {
+        flex-direction: column !important;
+        gap: 30px !important;
+        align-items: flex-end !important;
+    }
+    .menu-row {
+        display: flex !important;
+        gap: 32px !important;
+        justify-content: flex-end !important;
     }
 </style>
 {% endblock %}
@@ -66,6 +78,9 @@
         trabajamos en el día a día no solo en el trabajo sino también mejorando el ambiente y cuidándolo
         con las estrategias que damos a conocer aquí.
         <a href="/Blog-Del-Equipo" target="_blank">Visita nuestro blog aquí</a>
+        <br><br>
+        Tambien tenemos un canal de youtube !! ahí podras encontrar videos que te ayuden a entender mejor nuestro sitio web
+        <a href="https://www.youtube.com/channel/UCN7cng9jYArQ1jI6Ans7MCg"> Enlace a nuestro canal</a>
     </p>
     <img src="{{ url_for('static', filename='img/AunMas_Material 2.jpeg') }}" alt="AunMas_Material2" class="intro-img">
 </div>

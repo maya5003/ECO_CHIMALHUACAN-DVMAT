@@ -5,25 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}EcoChima{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/StylePrinc.css') }}">
-    {% block extra_head %}{% endblock %}
+    {% block extra_css %}{% endblock %}
+    {% block extra_head %}
+    <style>
+        .menu-row {
+            display: flex;
+            gap: 32px;
+            justify-content: flex-end;
+        }
+        .main-menu {
+            align-items: flex-start !important;
+        }
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: flex-end;
+        }
+    </style>
+    {% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
     <nav class="main-menu" role="navigation" aria-label="Menú principal">
-        <a href="/perfil-usuario" class="user-profile-link" data-content="Perfil" style="text-decoration: none;">
-            <div id="user-container" style="width: 175px; height: 125px; background-color: rgba(255,255,255,0.8); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-                <img src="{{ url_for('static', filename='img/' + foto) }}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ccc;">
-                <p style="margin: 5px 0 0 0; font-size: 12px; text-align: center;">{{ user }}</p>
+        <a href="/perfil-usuario" class="user-profile-link" data-content="Perfil" style="text-decoration: none; display: inline-block; vertical-align: top;">
+            <div id="user-container" style="width: 220px; height: 75px; background-color: rgba(255,255,255,0.8); border-radius: 10px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); gap: 10px;">
+                <img src="{{ url_for('static', filename='img/' + foto) }}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ccc; flex-shrink: 0;">
+                <p style="margin: 0; font-size: 12px; text-align: left;">{{ user }}</p>
             </div>
         </a>
         <div class="menu-links">
-            <a href="/" data-content="inicio">Inicio</a>
-            <a href="/Lecturas" data-content="lecturas">Lecturas</a>
-            <a href="/Entrevistas" data-content="entrevistas">Entrevistas</a>
-            <a href="/Videos-Educativos" data-content="videos">Videos Educativos</a>
-            <a href="/Juegos" data-content="juegos">Juegos didácticos</a>
-            <a href="/Catalogo" data-content="catalogo">Catálogo</a>
-            <a href="/Centros-de-Reciclaje" data-content="centros">Centros de Reciclaje</a>
-            <a href="/Aun-mas-sobre-nosotros" data-content="acciones">Aun Más Sobre Nosotros</a>
+            <div class="menu-row">
+                <a href="/" data-content="inicio">Inicio</a>
+                <a href="/Lecturas" data-content="lecturas">Lecturas</a>
+                <a href="/Entrevistas" data-content="entrevistas">Entrevistas</a>
+                <a href="/Videos-Educativos" data-content="videos">Videos Educativos</a>
+                <a href="/Juegos" data-content="juegos">Juegos didácticos</a>
+            </div>
+            <div class="menu-row">
+                <a href="/Catalogo" data-content="catalogo">Catálogo</a>
+                <a href="/Manual-de-Manualidades" data-content="manualidades">Manual de Manualidades</a>
+                <a href="/Centros-de-Reciclaje" data-content="centros">Centros de Reciclaje</a>
+                <a href="/Aun-mas-sobre-nosotros" data-content="acciones">Aun Más Sobre Nosotros</a>
+            </div>
         </div>
     </nav>
 

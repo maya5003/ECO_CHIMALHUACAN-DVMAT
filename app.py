@@ -187,7 +187,6 @@ def BorrarCuenta():
     usuario = session['usuario']
     correo = session['correo']
     try:
-        # Send email before deleting
         Enviar_Correo(correo, "Tu cuenta en EcoChima ha sido eliminada. Si no fuiste tú, contacta con soporte.")
         conexion = get_db_connection()
         cursor = conexion.cursor()
@@ -395,14 +394,68 @@ def ComentariosLecturas():
 def ComentariosPagina():
     return render_template("ComentariosPag.html")
 
-@app.route("/Historias-de-Usuarios", methods=["GET"])
-def HistoriasUsuariosForm():
-    return render_template("HistoriasUsuario.html")
-
-@app.route("/historiasGuardar", methods=["POST"])
-def historiasGuardas():
-    print("xd")   #Terminar
-
+@app.route("/enviar-comentario", methods=["POST"])
+def EnviarComentario():
+    """
+    Procesa el envío de comentarios desde los formularios de comentarios.
+    
+    Valida que el usuario esté registrado con el correo electrónico proporcionado
+    y envía un email con los comentarios a ben208093@gmail.com.
+    
+    Datos que recibira del formulario:
+        - correoElectronico: Correo del usuario registrado
+        - comentarios: Diccionario con los comentarios del usuario
+    
+    Respuestas posibles:
+        - {"success": True, "mensaje": "Comentario enviado exitosamente"} código 200
+        - {"error": "El correo no está registrado en el sistema"} código 401
+        - {"error": "Campos requeridos faltantes"} código 400
+        - {"error": "Error al enviar el comentario"} código 500
+    """
+    try:
+        # Obtener datos del formulario
+        data = request.get_json()
+        correo_usuario = data.get("correoElectronico")
+        comentarios = data.get("comentarios", {})
+        
+        # Validar que se proporcionen los datos requeridos
+        if not correo_usuario or not comentarios:
+            return {"error": "Campos requeridos faltantes"}, 400
+        
+        # Conectarse a la base de datos y verificar que el correo esté registrado
+        conexion = get_db_connection()
+        cursor = conexion.cursor()
+        
+        cursor.execute("SELECT Usuario FROM Registros WHERE CorreoElectronico = ?", (correo_usuario,))
+        usuario_encontrado = cursor.fetchone()
+        
+        conexion.close()
+        
+        # Si el correo no está registrado, retornar error
+        if not usuario_encontrado:
+            return {"error": "El correo no está registrado en el sistema"}, 401
+        
+        # Construir el contenido del email con los comentarios
+        contenido_email = f"<h2>Nuevo Comentario Recibido</h2>\n"
+        contenido_email += f"<p><strong>Correo del usuario:</strong> {correo_usuario}</p>\n"
+        contenido_email += f"<p><strong>Usuario:</strong> {usuario_encontrado['Usuario']}</p>\n"
+        contenido_email += "<h3>Comentarios:</h3>\n"
+        
+        for campo, valor in comentarios.items():
+            # Formatear los nombres de los campos para que sean legibles
+            nombre_campo = campo.replace('_', ' ').title()
+            contenido_email += f"<p><strong>{nombre_campo}:</strong> {valor}</p>\n"
+        
+        contenido_email += f"<p><em>Enviado el: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</em></p>"
+        
+        # Enviar el correo
+        Enviar_Correo("ben208093@gmail.com", contenido_email)
+        
+        return {"success": True, "mensaje": "Comentario enviado exitosamente"}, 200
+        
+    except Exception as e:
+        print(f"Error al procesar comentario: {type(e).__name__}: {e}")
+        return {"error": "Error al enviar el comentario"}, 500
 
 #Mostrara la plantilla del formulario de registro
 @app.route("/Registro", methods=["GET"])
@@ -656,6 +709,10 @@ def Catalogo():
     ]
 
     return render_template("Catalogo.html", productos=productos, user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
+
+@app.route("/Manual-de-Manualidades")
+def Manual_de_Manualidades():
+    return render_template("ManualManualidades.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 """
 JUEGOS
@@ -930,6 +987,102 @@ def RestablecerContraseña():
     except Exception as e:
         print(f"Error: {type(e).__name__}: {e}")
         return {"error": "Error en el servidor"}, 500
+    finally:
+        if conexion:
+            conexion.close()
+
+@app.route("/obtener-comentarios-blog", methods=["GET"])
+def ObtenerComentariosBlog():
+    """
+    Obtiene todos los comentarios del blog.
+    Solo usuarios autenticados pueden ver comentarios.
+    """
+    if 'usuario' not in session:
+        return {"error": "No autenticado"}, 401
+    
+    conexion = None
+    try:
+        conexion = get_db_connection()
+        cursor = conexion.cursor()
+        
+        # Obtener todos los comentarios con info del usuario
+        cursor.execute("""
+            SELECT 
+                cb.id,
+                cb.usuario,
+                cb.comentario,
+                cb.fecha,
+                r.FotoPerfil
+            FROM ComentariosBlog cb
+            JOIN Registros r ON cb.usuario = r.Usuario
+            ORDER BY cb.fecha DESC
+        """)
+        
+        comentarios = cursor.fetchall()
+        
+        # Convertir a lista de diccionarios
+        comentarios_list = []
+        for comentario in comentarios:
+            comentarios_list.append({
+                'id': comentario['id'],
+                'nombre_usuario': comentario['usuario'],
+                'comentario': comentario['comentario'],
+                'fecha': comentario['fecha'],
+                'foto_perfil': f"{request.host_url}static/img/{comentario['FotoPerfil']}" if comentario['FotoPerfil'] else f"{request.host_url}static/img/PerfilMaterial.png"
+            })
+        
+        return jsonify(comentarios_list)
+    
+    except Exception as e:
+        print(f"Error al obtener comentarios: {e}")
+        return {"error": "Error al obtener comentarios"}, 500
+    finally:
+        if conexion:
+            conexion.close()
+
+@app.route("/agregar-comentario-blog", methods=["POST"])
+def AgregarComentarioBlog():
+    """
+    Agrega un nuevo comentario al blog.
+    Solo usuarios autenticados pueden comentar.
+    """
+    if 'usuario' not in session:
+        return {"error": "No autenticado"}, 401
+    
+    data = request.get_json()
+    comentario = data.get('comentario', '').strip()
+    usuario = session['usuario']
+    
+    # Validaciones
+    if not comentario:
+        return {"success": False, "error": "El comentario no puede estar vacío"}, 400
+    
+    if len(comentario) > 5000:
+        return {"success": False, "error": "El comentario es demasiado largo (máximo 5000 caracteres)"}, 400
+    
+    conexion = None
+    try:
+        conexion = get_db_connection()
+        cursor = conexion.cursor()
+        
+        # Verificar que el usuario existe en la tabla Registros
+        cursor.execute("SELECT Usuario FROM Registros WHERE Usuario = ?", (usuario,))
+        if not cursor.fetchone():
+            return {"success": False, "error": "Usuario no válido"}, 403
+        
+        # Insertar el comentario
+        cursor.execute("""
+            INSERT INTO ComentariosBlog (usuario, comentario, fecha)
+            VALUES (?, ?, CURRENT_TIMESTAMP)
+        """, (usuario, comentario))
+        
+        conexion.commit()
+        
+        return {"success": True, "mensaje": "Comentario publicado exitosamente"}
+    
+    except Exception as e:
+        print(f"Error al agregar comentario: {e}")
+        return {"success": False, "error": "Error al publicar el comentario"}, 500
     finally:
         if conexion:
             conexion.close()

@@ -4,6 +4,22 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/StyleCat.css') }}">
+<style>
+    .main-menu {
+        background: rgba(255, 255, 255, 1) !important;
+        flex-wrap: nowrap !important;
+    }
+    .menu-links {
+        flex-direction: column !important;
+        gap: 30px !important;
+        align-items: flex-end !important;
+    }
+    .menu-row {
+        display: flex !important;
+        gap: 32px !important;
+        justify-content: flex-end !important;
+    }
+</style>
 {% endblock %}
 
 {% block content %}

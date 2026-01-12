@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title %}Manual de Manualidades{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/StyleManualidades.css') }}">
+{% endblock %}
+
+{% block content %}
+<img src="{{ url_for('static', filename='img/Manual_Portada.png') }}" alt="Manual de Manualidades" style="width: 100%; height: auto;">
+
+<div class="carrusel-wrapper">
+    <button class="btn-nav btn-anterior" id="btnAnterior">&lt;</button>
+    
+    <div class="carrusel-container">
+        <div class="carrusel" id="carrusel">
+            <div class="contenedor">
+                <h2>Animales con tetrabriks</h2>
+                <img src="{{ url_for('static', filename='img/Manualidades/Animales_tetrabrik.png') }}" alt="Imagen Manualidad 1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+                <section class="materiales">
+                    <h3>Materiales</h3>
+                    <ul>
+                        <li>Tetrabriks</li>
+                        <li>Tijeras</li>
+                        <li>Cuter</li>
+                        <li>Pinturas de tu preferencia</li>
+                        <li>Pincelin negro</li>
+                    </ul>
+                </section>
+                <section class="pasos">
+                    <h3>Pasos</h3>
+                    <ol>
+                        <li>Paso 1: Corta un tetrabrik a lo largo y límpialo bien para eliminar posibles restos.</li>
+                        <li>Paso 2: Dibuja las distintas piezas del animal que quieres construir guiándote por la imagen y recórtalas.</li>
+                        <li>Paso 3: Haz pequeños cortes en cada una de ellas,<br> para que unas encajen dentro de otras y den estabilidad a la figura.</li>
+                        <li>Paso 4: Vuelve a separar las piezas y píntalas.</li>
+                        <li>Paso 5: Deja secar y termina los detalles como los ojos, la nariz y la boca con un plumin.</li>
+                        <li>Paso 6: Puedes añadir tantos detalles como quieras a tu manualidad.</li>
+                    </ol>
+                </section>
+            </div>
+
+            <div class="contenedor">
+                <h2>Caja Conejito</h2>
+                <img src="{{ url_for('static', filename='img/Manualidades/Caja_Conejo.png') }}" alt="Imagen Manualidad 2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+                <section class="materiales">
+                    <h3>Materiales</h3>
+                    <ul>
+                        <li>Trozo de cartón</li>
+                        <li>Tijeras o cúter</li>
+                        <li>Pintura rosa</li>
+                        <li>Pincel</li>
+                        <li>Pegamento</li>
+                        <li>Plumin negro</li>
+                    </ul>
+                </section>
+                <section class="pasos">
+                    <h3>Pasos</h3>
+                    <ol>
+                        <li>Paso 1: Para hacer esta manualidad, utiliza un trozo de cartón y crea una caja cuadrada con él. <br>
+                            Necesitas hacer un redondel en la parte posterior para poder sacar los pañuelos de papel y que, una vez terminado, <br>
+                            parezca el gracioso rabito del conejo.</li>
+                        <li>Paso 2: También tienes que hacer dos hendiduras en la parte superior, donde quedarán fijadas las orejas.</li>
+                        <li>Paso 3: En un trozo de cartón, dibuja y recorta la forma de las orejitas, píntalas de rosa y déjalas secar</li>
+                        <li>Paso 4: Fíjalas a la caja con cola y termina de pintarla.</li>
+                        <li>Paso 5: Deja secar y dibuja con rotulador los ojos, el hocico y los bigotes.</li>
+                    </ol>
+                </section>
+            </div>
+
+            <div class="contenedor">
+                <h2>Ballena portapañuelos</h2>
+                <img src="{{ url_for('static', filename='img/Manualidades/Ballena.png') }}" alt="Imagen Manualidad 3" style="width: 75%; height: 200px; object-fit: cover; border-radius: 10px;">
+                <section class="materiales">
+                    <h3>Materiales</h3>
+                    <ul>
+                        <li>Caja de cartón</li>
+                        <li>Tijeras</li>
+                        <li>Cúter</li>
+                        <li>Pintura azul</li>
+                        <li>Pincel</li>
+                        <li>Pincelin negro</li>
+                    </ul>
+                </section>
+                <section class="pasos">
+                    <h3>Pasos</h3>
+                    <ol>
+                        <li>Paso 1: Tomando como referencia una caja de pañuelos de papel rectangular, <br>
+                            crea una un poco más grande; deberás formar los cuatro lados y la parte superior, <br>
+                            con una abertura en el centro, por donde pasarán luego los pañuelos. <br>
+                            La parte de abajo la dejarás sin nada; <br>
+                            de este modo quedará como una tapa con la que cubrirás la caja de pañuelos cuando esté terminada.</li>
+                        <li>Paso 2: En otro trozo de cartón, dibuja una cola de la ballena y recórtala.</li>
+                        <li>Paso 3: Haz un corte en la cola, en la zona en la que se unirá a la caja, y otro corte en la propia caja. Así encajará una hendidura en la otra y la colita quedará fija.</li>
+                        <li>Paso 4: El toque final lo darás pintando el conjunto de azul o gris</li>
+                        <li>Paso 5: Una vez seco, dibuja con pincelin los ojos, uno a cada lado, y la boca, que abarcará ambos lados y el frente.</li>
+                    </ol>
+                </section>
+            </div>
+
+            <div class="contenedor">
+                <h2>Bolos de sumo</h2>
+                <img src="{{ url_for('static', filename='img/Manualidades/Bolos_Sumo.png') }}" alt="Imagen Manualidad 4" style="width: 80%; height: 200px; object-fit: cover; border-radius: 10px;">
+                <section class="materiales">
+                    <h3>Materiales</h3>
+                    <ul>
+                        <li>Botellas de plastico de refresco o de lacteos</li>
+                        <li>Pintura negra</li>
+                        <li>Pincelin negro</li>
+                        <li>Barniz</li>
+                        <li>Arena</li>
+                    </ul>
+                </section>
+                <section class="pasos">
+                    <h3>Pasos</h3>
+                    <ol>
+                        <li>Paso 1: Retira el papel que puedan tener las botellas por fuera, lávalas y sécalas bien.</li>
+                        <li>Paso 2: Píntalas de rosa y de que se sequen.</li>
+                        <li>Paso 3: Pinta de negro la parte superior imitando el pelo de los luchadores de sumo. <br>
+                            No olvides el tapón, que será el moño del luchador.</li>
+                        <li>Paso 4: Una vez seco, colorea de blanco el mawashi que les cubre.</li>
+                        <li>Paso 5: Con pincelin añade los ojos y la boca.</li>
+                        <li>Paso 6: Cuando el trabajo esté terminado, añade una capa de barniz incoloro para proteger los bolos.</li>
+                        <li>Paso 7: Rellenalos de arena.</li>
+                    </ol>
+                </section>
+            </div>
+
+            <div class="contenedor">
+                <h2>Botellas Decoradas</h2>
+                <img src="{{ url_for('static', filename='img/Manualidades/Botelllas_De.png') }}" alt="Imagen Manualidad 5" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
+                <section class="materiales">
+                    <h3>Materiales</h3>
+                    <ul>
+                        <li>Botellas de vidrio limpias y secas</li>
+                        <li>Cilicon</li>
+                        <li>Lentejuelas de cualquier color</li>
+                        <li>Pincel pequeño</li>
+                        <li>Barniz transparente</li>
+                    </ul>
+                </section>
+                <section class="pasos">
+                    <h3>Pasos</h3>
+                    <ol>
+                        <li>Paso 1: Lava bien la botella para eliminar etiquetas, residuos o grasa.</li>
+                        <li>Paso 2: Diseña un patron decidiendo si cubriras toda la botella o solo una parte</li>
+                        <li>Paso 3: Aplica el pegamento usando el pincel en una pequeña capa de cilicon</li>
+                        <li>Paso 4: Coloca las lentejuelas una por una sobre el pegamento presionando ligeramente.</li>
+                        <li>Paso 5: Deja secar al menos 1 hora y agrega una capa de barniz</li>
+                    </ol>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-nav btn-siguiente" id="btnSiguiente">&gt;</button>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/ScriptManualidades.js') }}"></script>
+{% endblock %}

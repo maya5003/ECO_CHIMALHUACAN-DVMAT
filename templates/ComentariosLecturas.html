@@ -17,11 +17,11 @@
 <button class="back-btn" style="position: absolute; top: 10px; left: 10px; width: 70px; height: 70px; border-radius: 50%; background-color: lightgreen; border: none; cursor: pointer; padding: 0;" onclick="window.history.back()"><img src="/static/img/FlechaReg.png" alt="Regresar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain;"></button>
     <section class="Form-sesion">
         <h4>Comentarios de las lecturas</h4>
-        <form id="formRegistro" novalidate>
-            <input class="controls" type="text" id="usuario" placeholder="Nombre del usuario(s)" required>
-            <input class="controls" type="text" id="correo" placeholder="¿Que lectura te gusto mas?" required>
-            <input class="controls" type="text" id="password" placeholder="¿Que autor fue tu favorita?" required>
-            <input class="controls" type="text" id="pregunta1" placeholder="¿Te gustaria un tema en especial?" required>
+        <form id="formComentarios" novalidate>
+            <input class="controls" type="email" id="correoElectronico" placeholder="Correo electrónico registrado" required>
+            <input class="controls" type="text" id="lecturaMas" placeholder="¿Que lectura te gusto mas?" required>
+            <input class="controls" type="text" id="autorFavorita" placeholder="¿Que autor fue tu favorita?" required>
+            <input class="controls" type="text" id="temaSugerencia" placeholder="¿Te gustaria un tema en especial?" required>
             <h1>Califica las lecturas:</h1><br>
             <input type="radio" value="regular" id="regular" name="Calificacion" checked>
             <label for="regular">regulares</label>
@@ -29,11 +29,11 @@
             <label for="Bien">Buenas</label>
             <input type="radio" value="Excelente" id="Excelente" name="Calificacion">
             <label for="Excelente">Excelentes</label>
-            <button id="btnRegistrar" type="submit">Eniviar</button>
+            <button id="btnEnviar" type="submit">Enviar</button>
         </form>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../static/scripts/ScriptSweet.js"></script>
-    <script src="../static/scripts/scriptCom.js"></script>
+    <script src="../static/scripts/scriptComentarios.js"></script>
 </body>
 </html>
