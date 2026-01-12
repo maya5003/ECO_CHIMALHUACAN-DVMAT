@@ -1,3 +1,21 @@
+"""
+Aplicación Flask para EcoChimalhuacán - Sitio Web Educativo sobre Ecología y Reciclaje
+
+Esta aplicación es un sitio web educativo diseñado para promover la conciencia ambiental
+y el reciclaje en la comunidad de Chimalhuacán. Incluye funcionalidades de:
+- Autenticación de usuarios
+- Gestión de perfiles
+- Contenido educativo (lecturas, videos, entrevistas)
+- Juegos interactivos
+- Trivia sobre reciclaje
+- Catálogo de materiales reciclables
+- Sistema de comentarios
+- Recuperación de contraseña
+
+Autor: Equipo DVMAT
+Fecha: 2026
+"""
+
 from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3
 import os
@@ -9,23 +27,54 @@ import random
 import re
 from werkzeug.utils import secure_filename
 
+# Inicializar la aplicación Flask
 app = Flask(__name__)
-app.secret_key = "la_clave_secreta"  # Cambiar esto por algo más seguro
-app.permanent_session_lifetime = timedelta(minutes=30)
+app.secret_key = "la_clave_secreta"  # TODO: Cambiar esto por algo más seguro en producción
+app.permanent_session_lifetime = timedelta(minutes=30)  # Las sesiones expiran después de 30 minutos
 
-# Configuración para uploads
-UPLOAD_FOLDER = 'static/img/profiles'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# ============================================================================
+# CONFIGURACIÓN DEL SISTEMA
+# ============================================================================
+
+# Configuración para carga de archivos (fotos de perfil)
+UPLOAD_FOLDER = 'static/img/profiles'  # Carpeta donde se guardan las fotos subidas
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}  # Extensiones de archivo permitidas
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
+    """
+    Verifica si una extensión de archivo es permitida.
+    
+    Args:
+        filename (str): Nombre del archivo a validar
+    
+    Returns:
+        bool: True si la extensión está permitida, False en caso contrario
+    
+    Extensiones permitidas: png, jpg, jpeg, gif
+    """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def Enviar_Correo(Correo, contents="Hola!, Enviamos esta correo con el fin de verificar si fueiste tu el que se registro dentro de nuestro sitio web Eco_chima.  Si fuiste tu?"):
+    """
+    Envía un correo electrónico usando la cuenta de Gmail de EcoChima.
+    
+    Args:
+        Correo (str): Dirección de correo del destinatario
+        contents (str): Contenido del correo a enviar. Por defecto es un mensaje 
+                       de verificación de registro.
+    
+    Returns:
+        None
+    
+    Nota:
+        - Las credenciales están hardcodeadas. En producción, usar variables de entorno.
+        - Los errores se imprimen en consola pero no se lanzan excepciones.
+    """
     try:
         Remitente = "eco.chima.dvmat@gmail.com"
-        Contra_Rem = "dijslfebycgokoro"
+        Contra_Rem = "dijslfebycgokoro"  # TODO: Guardar en variables de entorno
 
         yag = yagmail.SMTP(Remitente, Contra_Rem)
 
@@ -40,22 +89,46 @@ def Enviar_Correo(Correo, contents="Hola!, Enviamos esta correo con el fin de ve
 
 
 
-"""
-PAGINAS
-PAGINAS
-PAGINAS
-"""
+# ============================================================================
+# RUTAS PARA PÁGINAS DE CONTENIDO
+# ============================================================================
+# Estas rutas sirven para mostrar las diferentes páginas del sitio web.
+# Cada página contiene contenido educativo sobre ecología y reciclaje.
 
 @app.route("/")
 def PaginaPrincipal():
+    """
+    Ruta principal del sitio web - Página de inicio.
+    
+    Returns:
+        str: Template HTML de la página principal con información del usuario
+    """
     return render_template("inicio.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/Aun-mas-sobre-nosotros")
 def SobreNosotros():
+    """
+    Página de información sobre el equipo y misión del proyecto EcoChima.
+    
+    Returns:
+        str: Template HTML con información del equipo y objetivos
+    """
     return render_template("SobreNos.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/Lecturas")
 def Lecturas():
+    """
+    Página de lecturas - Muestra un catálogo de libros sobre ecología y reciclaje.
+    
+    Contiene 10 libros con información sobre:
+    - Ecología y medio ambiente
+    - Reciclaje
+    - Educación ambiental
+    - Enlaces a documentos PDF descargables
+    
+    Returns:
+        str: Template HTML con la lista de libros disponibles
+    """
     libros = [
         {
             "id": 1,
@@ -133,31 +206,79 @@ def Lecturas():
 
 @app.route("/Videos-Educativos")
 def Videos():
+    """
+    Página de videos educativos sobre ecología y reciclaje.
+    
+    Returns:
+        str: Template HTML con videos incrustados
+    """
     return render_template("VideosEducativos.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/Entrevistas")
 def Entrevistas():
+    """
+    Página de entrevistas con expertos en ecología y reciclaje.
+    
+    Returns:
+        str: Template HTML con entrevistas y comentarios
+    """
     return render_template("Entrevistas.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/Juegos")
 def Juegos():
+    """
+    Página principal de juegos educativos.
+    
+    Muestra enlaces a:
+    - Aventura Verde (juego de reciclaje)
+    - Eco Defensor (juego educativo)
+    - Guardianes (juego de clasificación de residuos)
+    
+    Returns:
+        str: Template HTML con opciones de juegos
+    """
     return render_template("Juegos.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/Centros-de-Reciclaje")
 def CentrosReciclaje():
+    """
+    Página de centros de reciclaje - Muestra ubicaciones de centros locales.
+    
+    Returns:
+        str: Template HTML con mapa y dirección de centros de reciclaje
+    """
     return render_template("CentrosR.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/Blog-Del-Equipo")
 def Blog():
+    """
+    Blog del equipo DVMAT - Artículos y noticias sobre ecología.
+    
+    Returns:
+        str: Template HTML del blog con comentarios de usuarios
+    """
     return render_template("BlogEq.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
 @app.route("/perfil-usuario")
 def PerfilUsuario():
+    """
+    Página del perfil del usuario autenticado.
+    
+    Muestra la información del usuario incluyendo:
+    - Nombre de usuario
+    - Foto de perfil
+    - Opciones para editar contraseña, usuario y foto
+    - Opción para borrar cuenta
+    
+    Returns:
+        str: Template HTML del perfil de usuario
+        redirect: Redirige a login si no está autenticado
+    """
     if 'usuario' not in session:
         return redirect('/Inicio-Sesion')
     
     usuario = session['usuario']
-    foto = 'PerfilMaterial.png'  # predeterminada
+    foto = 'PerfilMaterial.png'  # Foto predeterminada
     
     if usuario != 'invitado':
         try:
@@ -177,11 +298,32 @@ def PerfilUsuario():
 
 @app.route("/cerrar-sesion")
 def CerrarSesion():
+    """
+    Cierra la sesión del usuario actual.
+    
+    Limpia todos los datos de sesión y redirige a la página principal.
+    
+    Returns:
+        redirect: Redirige a la página principal
+    """
     session.clear()
     return redirect('/')
 
 @app.route("/borrar-cuenta")
 def BorrarCuenta():
+    """
+    Elimina la cuenta del usuario permanentemente de la base de datos.
+    
+    Acciones realizadas:
+    1. Verifica que el usuario esté autenticado
+    2. Envía un correo de confirmación
+    3. Elimina todos los datos del usuario de la BD
+    4. Cierra la sesión
+    
+    Returns:
+        redirect: Redirige a la página principal
+        str: Mensaje de error si algo falla
+    """
     if 'usuario' not in session:
         return redirect('/Inicio-Sesion')
     usuario = session['usuario']
@@ -203,6 +345,21 @@ def BorrarCuenta():
 
 @app.route("/cambiar-usuario", methods=["POST"])
 def CambiarUsuario():
+    """
+    Permite al usuario cambiar su nombre de usuario.
+    
+    Expected JSON:
+        - usuario (str): Nuevo nombre de usuario
+    
+    Validaciones:
+    - El usuario debe estar autenticado
+    - El nuevo nombre no puede estar vacío
+    - El nuevo nombre no puede ser un nombre ya existente
+    
+    Returns:
+        dict: {"success": True, "mensaje": "..."} si se actualiza correctamente
+        dict: {"success": False, "error": "..."} si hay algún error
+    """
     if 'usuario' not in session:
         return {"success": False, "error": "No hay sesión iniciada"}, 401
     
@@ -244,6 +401,21 @@ def CambiarUsuario():
 
 @app.route("/cambiar-contraseña", methods=["POST"])
 def CambiarContraseña():
+    """
+    Permite al usuario cambiar su contraseña.
+    
+    Expected JSON:
+        - contraseña (str): Nueva contraseña
+    
+    Validaciones de contraseña:
+    - Mínimo 8 caracteres
+    - Al menos una letra mayúscula
+    - Al menos un número
+    
+    Returns:
+        dict: {"success": True, "mensaje": "..."} si se actualiza correctamente
+        dict: {"success": False, "error": "..."} si hay algún error
+    """
     if 'usuario' not in session:
         return {"success": False, "error": "No hay sesión iniciada"}, 401
     
@@ -278,6 +450,20 @@ def CambiarContraseña():
 
 @app.route("/cambiar-foto", methods=["POST"])
 def CambiarFoto():
+    """
+    Cambia la foto de perfil a una foto predeterminada.
+    
+    Expected JSON:
+        - foto (str): Nombre de la foto predeterminada
+    
+    Fotos predeterminadas permitidas:
+        - PerfilMaterial.png
+        - perfil1.png a perfil5.png
+    
+    Returns:
+        dict: {"success": True, "mensaje": "..."} si se actualiza correctamente
+        dict: {"success": False, "error": "..."} si hay algún error
+    """
     if 'usuario' not in session:
         return {"success": False, "error": "No hay sesión iniciada"}, 401
     
@@ -312,6 +498,19 @@ def CambiarFoto():
 
 @app.route("/subir-foto", methods=["POST"])
 def SubirFoto():
+    """
+    Permite al usuario subir una foto de perfil personalizada.
+    
+    Validaciones:
+    - Usuario debe estar autenticado
+    - Solo se permiten: png, jpg, jpeg, gif
+    - La foto se guarda con nombre único (usuario + token aleatorio)
+    - Se actualiza la ruta en la base de datos
+    
+    Returns:
+        dict: {"success": True, "foto": "..."} si se sube correctamente
+        dict: {"success": False, "error": "..."} si hay algún error
+    """
     if 'usuario' not in session:
         return {"success": False, "error": "No hay sesión iniciada"}, 401
     
@@ -351,19 +550,40 @@ def SubirFoto():
     else:
         return {"success": False, "error": "Tipo de archivo no permitido"}
 
-"""
-FORMULARIOS
-FORMULARIOS
-FORMULARIOS
-"""
-DB = "EcoChimalhuacan_DVMAT.db"
+# ============================================================================
+# FUNCIONES AUXILIARES Y CONFIGURACIÓN DE BASE DE DATOS
+# ============================================================================
+
+DB = "EcoChimalhuacan_DVMAT.db"  # Archivo de base de datos SQLite
 
 def get_db_connection():
+    """
+    Establece una conexión con la base de datos SQLite.
+    
+    Returns:
+        sqlite3.Connection: Conexión a la base de datos
+    
+    Configuración:
+    - Timeout de 10 segundos
+    - row_factory configurado para acceso como diccionario
+    """
     conexion = sqlite3.connect(DB, timeout=10.0)
     conexion.row_factory = sqlite3.Row
     return conexion
 
 def get_user_foto(usuario):
+    """
+    Obtiene la foto de perfil de un usuario desde la base de datos.
+    
+    Args:
+        usuario (str): Nombre del usuario
+    
+    Returns:
+        str: Ruta de la foto de perfil. Si no existe, retorna 'PerfilMaterial.png'
+    
+    Nota:
+        Si el usuario es 'invitado' o None, retorna la foto predeterminada.
+    """
     if usuario == 'invitado' or not usuario:
         return 'PerfilMaterial.png'
     try:
@@ -382,16 +602,38 @@ def get_user_foto(usuario):
         if 'conexion' in locals():
             conexion.close()
 
+# ============================================================================
+# RUTAS PARA COMENTARIOS
+# ============================================================================
+
 @app.route("/Comentarios-Entrevistas")
 def ComentariosEntrevistas():
+    """
+    Página para comentarios sobre las entrevistas.
+    
+    Returns:
+        str: Template HTML del formulario de comentarios
+    """
     return render_template("ComentariosEntrevistas.html")
 
 @app.route("/Comentarios-Lecturas")
 def ComentariosLecturas():
+    """
+    Página para comentarios sobre las lecturas.
+    
+    Returns:
+        str: Template HTML del formulario de comentarios
+    """
     return render_template("ComentariosLecturas.html")
 
 @app.route("/Comentarios-Pagina")
 def ComentariosPagina():
+    """
+    Página para comentarios generales sobre el sitio.
+    
+    Returns:
+        str: Template HTML del formulario de comentarios
+    """
     return render_template("ComentariosPag.html")
 
 @app.route("/enviar-comentario", methods=["POST"])
@@ -460,6 +702,12 @@ def EnviarComentario():
 #Mostrara la plantilla del formulario de registro
 @app.route("/Registro", methods=["GET"])
 def RegistroForm():
+    """
+    Muestra el formulario de registro de nuevos usuarios.
+    
+    Returns:
+        str: Template HTML del formulario de registro
+    """
     return render_template("Registro.html")
 
 @app.route("/registrar", methods=["POST"])
@@ -540,6 +788,12 @@ def Registrar():
 #Mostrara la plantilla del formulario de inicio de sesion
 @app.route("/Inicio-Sesion", methods=["GET"])
 def InicioSesion():
+    """
+    Muestra el formulario de inicio de sesión.
+    
+    Returns:
+        str: Template HTML del formulario de login
+    """
     return render_template("InicioSesion.html")
 
 @app.route("/iniciar-sesion", methods=["POST"])
@@ -606,14 +860,26 @@ def IniciarSesion():
         if conexion:
             conexion.close()
 
-"""
-CATALOGO
-CATALOGO
-CATALOGO
-"""
+# ============================================================================
+# RUTAS DE CATÁLOGO Y CONTENIDO
+# ============================================================================
 
 @app.route("/Catalogo")
 def Catalogo():
+    """
+    Página del catálogo de materiales reciclables.
+    
+    Muestra información detallada sobre:
+    - Tipos de plástico (PET, HDPE, PVC, LDPE, PP, PS, otros)
+    - Materiales diversos (cartón, cobre, aluminio, vidrio, papel, textiles, etc.)
+    - Características físicas de cada material
+    - Tiempo de degradación
+    - Ideas de reutilización
+    - Productos comunes hechos de cada material
+    
+    Returns:
+        str: Template HTML con el catálogo de materiales
+    """
     productos = [
         {"nombre": "Plastico PET no. 1", "descripcion": "Se trata del plástico más común empleado en la producción de envases como botellas de refrescos, agua, aceite.",
          "IdeasRec": "Este material tiene la ventaja de ser reciclable para obtener fibras con las que rellenar almohadas o confeccionar alfombras; por tanto, se recomienda introducirlo en el contenedor correspondiente. Asimismo, es reutilizable si está profundamente limpio.", "TiempoDegr": "Entre 500 y 1.000 años en desaparecer en la naturaleza.", 
@@ -712,28 +978,51 @@ def Catalogo():
 
 @app.route("/Manual-de-Manualidades")
 def Manual_de_Manualidades():
+    """
+    Página con manual de manualidades - Proyectos de reciclaje creativo.
+    
+    Muestra tutoriales para crear proyectos con materiales reciclados.
+    
+    Returns:
+        str: Template HTML con tutoriales de manualidades
+    """
     return render_template("ManualManualidades.html", user=session.get('usuario', 'invitado'), foto=get_user_foto(session.get('usuario')))
 
-"""
-JUEGOS
-JUEGOS
-JUEGOS
-"""
+# ============================================================================
+# RUTAS DE JUEGOS EDUCATIVOS
+# ============================================================================
 
 @app.route("/Recicla-y-Gana")
 def Recicla_y_Gana():
+    """
+    Juego educativo: Aventura Verde - Recicla y Gana.
+    
+    Un juego de aventura interactivo que enseña sobre reciclaje
+    mientras el jugador completa misiones y gana puntos.
+    
+    Returns:
+        str: Template HTML del juego
+    """
     return render_template("AventuraVerde.html")
 
 @app.route("/Eco-Defensor")
 def EcoDefensor():
+    """
+    Juego educativo: Eco Defensor.
+    
+    Un juego donde el jugador debe defender el ambiente
+    tomando decisiones correctas sobre ecología y reciclaje.
+    
+    Returns:
+        str: Template HTML del juego
+    """
     return render_template("EcoDef.html")
 
-"""
-TRIVIA
-TRIVIA
-TRIVIA
-"""
+# ============================================================================
+# RUTAS DE TRIVIA
+# ============================================================================
 
+# Preguntas de trivia organizadas por nivel de dificultad
 niveles = {
     "facil": [
         {
@@ -779,15 +1068,35 @@ niveles = {
 
 @app.route("/Nivel")
 def nivel():
+    """
+    Página para seleccionar el nivel de trivia.
+    
+    Presenta opciones: Fácil, Medio, Difícil
+    
+    Returns:
+        str: Template HTML con opciones de nivel
+    """
     return render_template("TriviaNivel.html")
 
 @app.route("/Trivia", methods=["POST"])
 def Trivia():
+    """
+    Procesa las respuestas de la trivia y calcula el puntaje.
+    
+    Parámetros del formulario:
+    - nivel: Nivel de dificultad (facil, medio, dificil)
+    - pregunta_0, pregunta_1, etc.: Respuestas del usuario
+    - enviado: Indicador de envío (si existe, calcula puntaje)
+    
+    Returns:
+        str: Template HTML con preguntas y puntaje (si aplica)
+    """
     nivel = request.form["nivel"]
     preguntas = niveles[nivel]
 
     puntaje = None
 
+    # Si el formulario fue enviado, calcula el puntaje
     if "enviado" in request.form:
         puntaje = 0
         for i, p in enumerate(preguntas):
@@ -803,11 +1112,11 @@ def Trivia():
         total=len(preguntas)
     )
 
-"""
-GUARDIANES
-GUARDIANES
-GUARDIANES
-"""
+# ============================================================================
+# RUTAS DEL JUEGO GUARDIANES
+# ============================================================================
+
+# Lista de objetos para el juego Guardianes (reciclables y no reciclables)
 objetos = [
     {"nombre": "Botella de plástico", "recicla": True},
     {"nombre": "Papel", "recicla": True},
@@ -826,20 +1135,33 @@ objetos = [
 
 @app.route("/Guardianes")
 def Guardianes():
+    """
+    Juego educativo: Guardianes del Reciclaje.
+    
+    Juego interactivo donde el usuario debe clasificar objetos
+    en reciclables o no reciclables.
+    
+    Returns:
+        str: Template HTML del juego
+    """
     return render_template("Guardianes.html")
 
 @app.route("/objeto")
 def obtener_objeto():
+    """
+    API - Retorna un objeto aleatorio para el juego Guardianes.
+    
+    Returns:
+        dict: {"nombre": "...", "recicla": True/False}
+    """
     return jsonify(random.choice(objetos))
 
+# ============================================================================
+# RUTAS DE RECUPERACIÓN DE CONTRASEÑA
+# ============================================================================
 
-"""
-MANEJO DE CONTRASEÑA OLVIDADA
-MANEJO DE CONTRASEÑA OLVIDADA
-MANEJO DE CONTRASEÑA OLVIDADA
-"""
-
-# Diccionario temporal para almacenar tokens de recuperación (en producción usar BD)
+# Diccionario temporal para almacenar tokens de recuperación
+# TODO: En producción, guardar tokens en la base de datos con timestamp
 recovery_tokens = {}
 
 @app.route("/Olvide-Contraseña", methods=["GET"])
@@ -1087,10 +1409,18 @@ def AgregarComentarioBlog():
         if conexion:
             conexion.close()
 
-if __name__ == "__main__":
-    #debug=True activa el modo depuracion
-    # - muestra errores en la consola/browser
+# ============================================================================
+# PUNTO DE ENTRADA DE LA APLICACIÓN
+# ============================================================================
 
-    #Inicia un servidor de prueba y muestra errores si los hay
-    # - recarga la appp automaticamente cuando camvbias archivos (util en desarrollo)
+if __name__ == "__main__":
+    """
+    Inicia el servidor de desarrollo de Flask.
+    
+    Configuración:
+    - debug=True: Activa el modo de depuración
+        - Muestra errores detallados en la consola y navegador
+        - Recarga automática cuando se modifican archivos
+        - No usar en producción
+    """
     app.run(debug=True)
