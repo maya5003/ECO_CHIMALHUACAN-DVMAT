@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.main-menu a');
+    const buttons = document.querySelectorAll('.main-menu a, .user-profile-link');
     const contentDisplay = document.getElementById('content-display');
 
     let hideTimeout;
@@ -89,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // Evitar salir a la izquierda
         if (left < window.scrollX + margin) left = window.scrollX + margin;
+
+        // Extra margin for perfil-usuario
+        if (target.classList.contains('user-profile-link')) {
+            left += 200; // increased horizontal margin
+            top += 150;  // increased vertical margin
+        }
 
         popover.style.left = `${left}px`;
         popover.style.top = `${top}px`;

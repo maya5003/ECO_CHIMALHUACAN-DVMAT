@@ -37,7 +37,11 @@ document.getElementById('btnBuscarLect').addEventListener('click', function() {
         document.getElementById('modal-descarga').href = libro.descarga;
         document.getElementById('book-modal').style.display = 'flex';
     } else {
-        alert('Libro no encontrado. Verifica el nombre e intenta de nuevo.');
+        Swal.fire({
+            iconHtml: '😢',
+            title: "upss",
+            text: "Lo sentimos, no podemos encontrar el material de tu busqueda, revisa si el libro que buscas esta en nuestra pagina comprueba que este bien escrito el titulo"
+        });
     }
     suggestions.style.display = 'none';
 });
