@@ -4,17 +4,13 @@
 <head>
     <title>EcoChima</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/StylePrinc.css') }}">
-    <style>
-        body {
-            padding-bottom: 50px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css') }}">
     <script src="{{ url_for('static', filename='scripts/ScriptPrinc.js') }}" defer></script>
     <script src="{{ url_for('static', filename='scripts/observeParagraphs.js') }}"></script>
 </head>
 
 <body>
-    <a href="/perfil-usuario" class="user-profile-link" data-content="Perfil" style="text-decoration: none;">
+    <a href="/perfil-usuario" class="user-profile-link" data-content="Perfil" title="Perfil">
         <div id="user-container" style="position: absolute; top: 10px; left: 10px; width: 175px; height: 125px; background-color: rgba(255,255,255,0.8); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 1000;">
             <img src="{{ url_for('static', filename='img/' + foto) }}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ccc;">
             <p style="margin: 5px 0 0 0; font-size: 12px; text-align: center;">{{ user }}</p>
@@ -41,9 +37,9 @@
     <br>
     <hr>
     <h1>Objetivo</h1>
-    <div style="display: flex; gap: 20px; align-items: flex-start; margin: 5px 0 5px 15px;">
-        <div style="flex: 1;">
-            <p style="background: rgba(75, 173, 34, 0.462);">En este proyecto nos propusimos desarrollar una pagina web
+    <div class="section-content">
+        <div>
+            <p style="background: rgba(75, 173, 34, 0.8);">En este proyecto nos propusimos desarrollar una pagina web
                 que sea fácil de entender para enriquecer la
                 educacion ambiental dentro de la comunidad escolar. Para esto decidimos informar sobre las buenas
                 prácticas:</p>
@@ -53,16 +49,15 @@
                 <li style="background: rgba(86, 214, 30, 0.3);">Reducción de residuos</li>
                 <li style="background: rgba(86, 214, 30, 0.3);">División de la basura</li>
             </ul>
-            <p style="background: rgba(22, 205, 49, 0.3);">Esto lo queremos lograr mediante la creacion de secciones
+            <p style="background: rgba(22, 205, 49, 0.8);">Esto lo queremos lograr mediante la creacion de secciones
                 informativas, juegos interactivos y retos.</p>
         </div>
-        <img src="{{ url_for('static', filename='img/LibroVegetado.png') }}" alt="LibroVegetado"
-            style="width: 350px; height: auto; flex-shrink: 0;">
+        <img src="{{ url_for('static', filename='img/LibroVegetado.png') }}" alt="LibroVegetado">
     </div>
     <hr>
     <h1>Acciones</h1>
-    <div style="display: flex; gap: 20px; align-items: flex-start; margin: 5px 0 5px 15px;">
-        <div style="flex: 1;">
+    <div class="section-content">
+        <div>
             <p style="margin: 0 0 15px 0;">
                 Las acciones que tomaremos para alcanzar nuestro objetivo de la manera mas efectiva posible seran:
             </p>
@@ -78,13 +73,12 @@
                 <li>Difundir ideas creativas de reutilización (manualidades, compostaje, proyectos escolares).</li>
             </ul>
         </div>
-        <img src="{{ url_for('static', filename='img/Acciones.png') }}" alt="Acciones"
-            style="width: 300px; height: auto; flex-shrink: 0;">
+        <img src="{{ url_for('static', filename='img/Acciones.png') }}" alt="Acciones">
     </div>
     <hr>
     <h1>Sobre nosotros</h1>
-    <div style="display: flex; gap: 20px; align-items: center; margin: 5px 0 5px 15px;">
-        <p style="margin: 0; background: rgba(9, 85, 226, 0.3);">
+    <div class="sobre-nosotros">
+        <p style="margin: 0; background: rgba(9, 85, 226, 0.8);">
             Somos un equipo de 5 integrantes dedicados a soñar y a convertir en realidad todo lo que soñamos.
             <br>
             Nuestro proposito para crear este sitio web es aportar un granito de arena en la consientizacion del
@@ -96,14 +90,13 @@
             positivo no solo en nuestro plantel sino tambien en nuestro entorno.
         </p>
         <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-            <img src="{{ url_for('static', filename='img/DVMATLogo.png') }}" alt="DVMATLogo"
-                style="width: 150px; height: auto; flex-shrink: 0;">
+            <img src="{{ url_for('static', filename='img/DVMATLogo.png') }}" alt="DVMATLogo">
             <a href="/Aun-mas-sobre-nosotros">Aun mas sobre nosotros</a>
         </div>
     </div>
     <hr>
     <br>
-    <p style="background: rgba(6, 71, 163, 0.3);">
+    <p class="final-note">
         Si quieres comentarnos o darnos sugerenciaas de como podemos mejorar nuestro sitio web,
         no dudes de dejar un comentario en nuestro formulario de comentarios. <br>
         Prometemos leer la gran mayoria.
