@@ -1034,6 +1034,46 @@ niveles = {
             "pregunta": "¿Reciclar ayuda al planeta?",
             "opciones": ["Sí", "No", "A veces"],
             "respuesta": "Sí"
+        },
+        {
+            "pregunta": "¿Que podemos hacer para reducir la cantidad de basura que producimos?",
+            "opciones": ["Comprar solo lo necesario", "Usar muchos empaques", "tirar todo sin separar"],
+            "respuesta": "Comprar solo lo necesario"
+        },
+        {
+            "pregunta": "¿Cual de los siguientes objetos se puede reciclar?",
+            "opciones": ["Una botella de plastico", "Una cascara de platano", "Un trozo de pan"],
+            "respuesta": "Una botella de plastico"
+        },
+        {
+            "pregunta": "¿Cual es el simbolo que representa el reciclaje?",
+            "opciones": ["Un triangulo con tres flechas", "Un circulo con hojas", "Una lata con tapa"],
+            "respuesta": "Un triangulo con tres flechas"
+        },
+        {
+            "pregunta": "¿Porque es importante reciclar?",
+            "opciones": ["Porque da dinero", "Porque ayuda al medio ambiente", "Porque se ve bien"],
+            "respuesta": "Porque ayuda al medio ambiente"
+        },
+        {
+            "pregunta": "¿Que material tarda mas en degradarse: el vidrio o el papel?",
+            "opciones": ["Papel", "Vidrio", "Ambos igual"],
+            "respuesta": "Vidrio"
+        },
+        {
+            "pregunta": "¿Que significa la palabra reciclar?",
+            "opciones": ["Usar algo nuevo", "Tirar la basura", "Transformar residuos en nuevos productos"],
+            "respuesta": "Transformar residuos en nuevos productos"
+        },
+        {
+            "pregunta": "¿Que se puede hacer con botellas de plastico recicladas?",
+            "opciones": ["Juguetes", "Ropa", "Ambas"],
+            "respuesta": "Juguetes"
+        },
+        {
+            "pregunta": "¿Que tipos de residuos se deben evitar mezclar con los reciclables?",
+            "opciones": ["Los organicos", "Los de papel", "Los de carton"],
+            "respuesta": "Sí"
         }
     ],
     "medio": [
@@ -1043,9 +1083,49 @@ niveles = {
             "respuesta": "Plástico"
         },
         {
-            "pregunta": "¿Qué contenedor se usa para el vidrio?",
+            "pregunta": "¿Qué contenedor se usa para el papel?",
             "opciones": ["Azul", "Verde", "Amarillo"],
+            "respuesta": "Azul"
+        },
+        {
+            "pregunta": "¿Que tipo de plastico se recicla con el numero uno dentro del triangulo de reciclaje?",
+            "opciones": ["PET", "PVC", "Poliestireno"],
+            "respuesta": "PET"
+        },
+        {
+            "pregunta": "¿Cuanto tiempo tarda una lata de aluminio en degradarse en la naturaleza?",
+            "opciones": ["10 años", "100 años", "200 años"],
+            "respuesta": "200 años"
+        },
+        {
+            "pregunta": "¿Que beneficios tiene el reciclaje para el medio ambiente?",
+            "opciones": ["Reduce la contaminacion", "Aumenta la basura", "Gasta mas energia"],
+            "respuesta": "Reduce la contaminacion"
+        },
+        {
+            "pregunta": "¿Que diferencia hay entre reutilizar y reciclar?",
+            "opciones": ["Reutilizar es usar de nuevo, reciclar es transformar", "Son lo mismo", "Reutilizar contamina mas"],
+            "respuesta": "Reutilizar es usar de nuevo, reciclar es transformar"
+        },
+        {
+            "pregunta": "¿Que tipo de residuos deben ir al contenedor gris o negro?",
+            "opciones": ["Organicos", "No reciclables", "Vidrio"],
+            "respuesta": "No reciclables"
+        },
+        {
+            "pregunta": "¿Que productos reciclados pueden fabricarse a partir de vidrio?",
+            "opciones": ["Juguetes", "Nuevas botellas", "Bolsas de plastico"],
             "respuesta": "Verde"
+        },
+        {
+            "pregunta": "¿Que accion PEC ayuda a reducir la generacion de basura de las escuelas?",
+            "opciones": ["Tirar todo junto", "Separar los residuos", "No reciclar nada"],
+            "respuesta": "Separar los residuos"
+        },
+        {
+            "pregunta": "¿Que materiales reciclables se generan con mas frecuencia en las escuelas?",
+            "opciones": ["Papel y plastico", "Vidrio y metal", "Restos de comida"],
+            "respuesta": "Papel y plastico"
         }
     ],
     "dificil": [
@@ -1062,7 +1142,47 @@ niveles = {
             "pregunta": "¿Cuál NO es una de las 3R?",
             "opciones": ["Reducir", "Reciclar", "Reemplazar"],
             "respuesta": "Reemplazar"
-        }
+        },
+        {
+            "pregunta": "¿Que es la economia circular y como se relaciona con el reciclaje?",
+            "opciones": ["Sistema donde todo se utiliza solo una vez", "Sistema que busca aprovechar los recuros al maximo", "Forma de producir mas basura"],
+            "respuesta": "Sistema que busca aprovechar los recuros al maximo"
+        },
+        {
+            "pregunta": "¿Que porcentaje aproximado de basura escolar podria reciclarse si se separa correctamente?",
+            "opciones": ["10%", "50%", "80%"],
+            "respuesta": "80%"
+        },
+        {
+            "pregunta": "¿Cuál es el principal reto que enfrenta Mexico en cuanto al reciclaje?",
+            "opciones": ["Falta de materiales", "Falta de educacion y separacion adecuada", "Exceso de plantas recicladoras"],
+            "respuesta": "Falta de educacion y separacion adecuada"
+        },
+        {
+            "pregunta": "¿Que tipos de plasticos no se pueden reciclar facilmente y porque?",
+            "opciones": ["Los biodegradables", "Los mezclados o sucios", "Los duros"],
+            "respuesta": "Los mezclados o sucios"
+        },
+        {
+            "pregunta": "¿Como influye el reciclaje en la reduccion de gases de efecto invernadero?",
+            "opciones": ["Aumenta la contaminacion", "Disminuye las emisiones", "No tiene relacion"],
+            "respuesta": "Disminuye las emisiones"
+        },
+        {
+            "pregunta": "¿Que impacto tiene la contaminacion por microplasticos en los ecosistemas marinos ?",
+            "opciones": ["No causa daño", "Afecta a los animales y al agua", "Mejora la calidad del mar"],
+            "respuesta": "Afecta a los animales y al agua"
+        },
+        {
+            "pregunta": "¿Cual es la diferencia entre compostaje y reciclaje",
+            "opciones": ["Compostaje es para residuos organicos", "Compostaje usa plastico", "No hay diferencia"],
+            "respuesta": "Compostaje es para residuos organicos"
+        },
+        {
+            "pregunta": "¿Que estrategias propone el PEC para fomentar el reciclaje entre los estudiantes?",
+            "opciones": ["Ignora los residuos", "Educacion ambiental y separacion de basura", "No usar contenedores"],
+            "respuesta": "Educacion ambiental y separacion de basura"
+        },
     ]
 }
 

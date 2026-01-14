@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(125deg, rgba(34, 129, 10, 0.631), rgb(16, 120, 168));
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+.hero-container {
+    position: relative;
+    width: 100%;
+}
+
+.hero-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Encabezado */
+header {
+    background: #003060;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Contenedor estilo lista */
+.lista {
+    width: 90%;
+    margin: auto;
+    padding: 30px 0;
+}
+
+/* Cada sección del catálogo */
+.item {
+    display: flex;
+    align-items: center;
+    background: white;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Imagen izquierda */
+.item img {
+    width: 50%;
+    height: 350px;
+    object-fit: contain;
+}
+
+/* Texto derecha */
+.info {
+    padding: 20px;
+    width: 50%;
+}
+
+.info h2 {
+    margin-top: 0;
+}
+
+button {
+    background: #0067b8;
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #004c87;
+}
