@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Evitar salir a la izquierda
         if (left < window.scrollX + margin) left = window.scrollX + margin;
 
-        // Extra margin for perfil-usuario
-        if (target.classList.contains('user-profile-link')) {
+        // Extra margin for perfil-usuario only in inicio.html
+        if (target.classList.contains('user-profile-link') && document.querySelector('.hero-container')) {
             left += 200; // increased horizontal margin
             top += 150;  // increased vertical margin
         }

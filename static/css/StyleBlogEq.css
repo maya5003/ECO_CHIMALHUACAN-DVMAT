@@ -295,3 +295,128 @@ a:hover {
     color: #999;
     font-size: 14px;
 }
+
+/* Estilos para respuestas */
+.reply-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.reply-btn:hover {
+    background-color: #1976D2;
+}
+
+.reply-form {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.reply-text {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+
+.reply-text:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.btn-submit-reply, .btn-cancel-reply {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit-reply:hover {
+    background-color: #45a049;
+}
+
+.btn-cancel-reply {
+    background-color: #f44336;
+}
+
+.btn-cancel-reply:hover {
+    background-color: #d32f2f;
+}
+
+.replies-container {
+    margin-top: 15px;
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+}
+
+.reply-card {
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.reply-avatar {
+    flex-shrink: 0;
+}
+
+.reply-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    object-fit: cover;
+}
+
+.reply-content {
+    flex: 1;
+}
+
+.reply-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.reply-username {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 14px;
+    margin: 0;
+}
+
+.reply-date {
+    color: #999;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.reply-text {
+    color: #333;
+    line-height: 1.5;
+    margin: 0;
+    font-size: 14px;
+    word-wrap: break-word;
+}

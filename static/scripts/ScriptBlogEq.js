@@ -53,12 +53,16 @@ function loadComments() {
             if (response.status === 401) {
                 // Usuario no autenticado
                 showLoginMessage();
-                return [];
+                const commentsList = document.getElementById('commentsList');
+                commentsList.innerHTML = '<div class="no-comments-message">Inicia sesión para ver los comentarios publicados.</div>';
+                return;
             }
             return response.json();
         })
         .then(comments => {
-            displayComments(comments);
+            if (comments) {
+                displayComments(comments);
+            }
         })
         .catch(error => {
             console.error('Error al cargar comentarios:', error);
@@ -78,6 +82,7 @@ function displayComments(comments) {
     comments.forEach(comment => {
         const commentCard = document.createElement('div');
         commentCard.className = 'comment-card';
+        commentCard.setAttribute('data-comment-id', comment.id);
         commentCard.innerHTML = `
             <div class="comment-avatar">
                 <img src="${comment.foto_perfil}" alt="${comment.nombre_usuario}">
@@ -88,9 +93,43 @@ function displayComments(comments) {
                     <span class="comment-date">${formatDate(comment.fecha)}</span>
                 </div>
                 <p class="comment-text">${escapeHtml(comment.comentario)}</p>
+                <button class="reply-btn" data-comment-id="${comment.id}">Responder</button>
+                <div class="reply-form" id="reply-form-${comment.id}" style="display: none;">
+                    <textarea class="reply-text" placeholder="Escribe tu respuesta..." rows="2"></textarea>
+                    <button class="btn-submit-reply" data-comment-id="${comment.id}">Publicar Respuesta</button>
+                    <button class="btn-cancel-reply" data-comment-id="${comment.id}">Cancelar</button>
+                </div>
+                <div class="replies-container" id="replies-${comment.id}">
+                    <!-- Las respuestas se cargarán aquí -->
+                </div>
             </div>
         `;
         commentsList.appendChild(commentCard);
+
+        // Cargar respuestas para este comentario
+        loadReplies(comment.id);
+    });
+
+    // Agregar event listeners para botones de respuesta
+    document.querySelectorAll('.reply-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-comment-id');
+            toggleReplyForm(commentId);
+        });
+    });
+
+    document.querySelectorAll('.btn-submit-reply').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-comment-id');
+            submitReply(commentId);
+        });
+    });
+
+    document.querySelectorAll('.btn-cancel-reply').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-comment-id');
+            cancelReply(commentId);
+        });
     });
 }
 
@@ -164,16 +203,117 @@ function showLoginMessage() {
     }
 }
 
-// Función para escapar HTML
-function escapeHtml(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-    return text.replace(/[&<>"']/g, m => map[m]);
+// Función para cargar respuestas
+function loadReplies(commentId) {
+    fetch(`/obtener-respuestas-blog/${commentId}`)
+        .then(response => {
+            if (response.status === 401) {
+                return [];
+            }
+            return response.json();
+        })
+        .then(replies => {
+            displayReplies(commentId, replies);
+        })
+        .catch(error => {
+            console.error('Error al cargar respuestas:', error);
+        });
+}
+
+// Función para mostrar respuestas
+function displayReplies(commentId, replies) {
+    const repliesContainer = document.getElementById(`replies-${commentId}`);
+    repliesContainer.innerHTML = '';
+
+    if (replies.length > 0) {
+        replies.forEach(reply => {
+            const replyCard = document.createElement('div');
+            replyCard.className = 'reply-card';
+            replyCard.innerHTML = `
+                <div class="reply-avatar">
+                    <img src="${reply.foto_perfil}" alt="${reply.nombre_usuario}">
+                </div>
+                <div class="reply-content">
+                    <div class="reply-header">
+                        <p class="reply-username">${escapeHtml(reply.nombre_usuario)}</p>
+                        <span class="reply-date">${formatDate(reply.fecha)}</span>
+                    </div>
+                    <p class="reply-text">${escapeHtml(reply.respuesta)}</p>
+                </div>
+            `;
+            repliesContainer.appendChild(replyCard);
+        });
+    }
+}
+
+// Función para mostrar/ocultar formulario de respuesta
+function toggleReplyForm(commentId) {
+    const form = document.getElementById(`reply-form-${commentId}`);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+// Función para enviar respuesta
+function submitReply(commentId) {
+    const replyText = document.querySelector(`#reply-form-${commentId} .reply-text`).value;
+
+    if (!replyText.trim()) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campo vacío',
+            text: 'Por favor, escribe una respuesta.',
+            confirmButtonColor: '#4CAF50'
+        });
+        return;
+    }
+
+    fetch('/agregar-respuesta-blog', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            comentario_id: commentId,
+            respuesta: replyText
+        })
+    })
+    .then(response => {
+        if (response.status === 401) {
+            showLoginMessage();
+            return;
+        }
+        if (!response.ok) {
+            throw new Error('Error al enviar respuesta');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data && data.success) {
+            document.querySelector(`#reply-form-${commentId} .reply-text`).value = '';
+            toggleReplyForm(commentId);
+            loadReplies(commentId);
+            Swal.fire({
+                icon: 'success',
+                title: '¡Excelente!',
+                text: 'Respuesta publicada exitosamente.',
+                confirmButtonColor: '#4CAF50'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al publicar la respuesta.',
+            confirmButtonColor: '#4CAF50'
+        });
+    });
+}
+
+// Función para cancelar respuesta
+function cancelReply(commentId) {
+    document.querySelector(`#reply-form-${commentId} .reply-text`).value = '';
+    toggleReplyForm(commentId);
 }
 
 // Función para formatear fecha
@@ -190,4 +330,16 @@ function formatDate(dateString) {
     } else {
         return date.toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
     }
+}
+
+// Función para escapar HTML
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
 }
