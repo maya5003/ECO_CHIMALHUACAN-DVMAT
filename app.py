@@ -1529,6 +1529,112 @@ def AgregarComentarioBlog():
         if conexion:
             conexion.close()
 
+@app.route("/obtener-respuestas-blog/<int:comentario_id>", methods=["GET"])
+def ObtenerRespuestasBlog(comentario_id):
+    """
+    Obtiene todas las respuestas a un comentario específico del blog.
+    Solo usuarios autenticados pueden ver respuestas.
+    """
+    if 'usuario' not in session:
+        return {"error": "No autenticado"}, 401
+    
+    conexion = None
+    try:
+        conexion = get_db_connection()
+        cursor = conexion.cursor()
+        
+        # Obtener todas las respuestas con info del usuario
+        cursor.execute("""
+            SELECT 
+                rb.id,
+                rb.usuario,
+                rb.respuesta,
+                rb.fecha,
+                r.FotoPerfil
+            FROM RespuestasBlog rb
+            JOIN Registros r ON rb.usuario = r.Usuario
+            WHERE rb.comentario_id = ?
+            ORDER BY rb.fecha ASC
+        """, (comentario_id,))
+        
+        respuestas = cursor.fetchall()
+        
+        # Convertir a lista de diccionarios
+        respuestas_list = []
+        for respuesta in respuestas:
+            respuestas_list.append({
+                'id': respuesta['id'],
+                'nombre_usuario': respuesta['usuario'],
+                'respuesta': respuesta['respuesta'],
+                'fecha': respuesta['fecha'],
+                'foto_perfil': f"{request.host_url}static/img/{respuesta['FotoPerfil']}" if respuesta['FotoPerfil'] else f"{request.host_url}static/img/PerfilMaterial.png"
+            })
+        
+        return jsonify(respuestas_list)
+    
+    except Exception as e:
+        print(f"Error al obtener respuestas: {e}")
+        return {"error": "Error al obtener respuestas"}, 500
+    finally:
+        if conexion:
+            conexion.close()
+
+@app.route("/agregar-respuesta-blog", methods=["POST"])
+def AgregarRespuestaBlog():
+    """
+    Agrega una nueva respuesta a un comentario del blog.
+    Solo usuarios autenticados pueden responder.
+    """
+    if 'usuario' not in session:
+        return {"error": "No autenticado"}, 401
+    
+    data = request.get_json()
+    comentario_id = data.get('comentario_id')
+    respuesta = data.get('respuesta', '').strip()
+    usuario = session['usuario']
+    
+    # Validaciones
+    if not respuesta:
+        return {"success": False, "error": "La respuesta no puede estar vacía"}, 400
+    
+    if len(respuesta) > 5000:
+        return {"success": False, "error": "La respuesta es demasiado larga (máximo 5000 caracteres)"}, 400
+    
+    if not comentario_id:
+        return {"success": False, "error": "ID de comentario requerido"}, 400
+    
+    conexion = None
+    try:
+        conexion = get_db_connection()
+        cursor = conexion.cursor()
+        
+        # Verificar que el comentario existe
+        cursor.execute("SELECT id FROM ComentariosBlog WHERE id = ?", (comentario_id,))
+        if not cursor.fetchone():
+            return {"success": False, "error": "Comentario no encontrado"}, 404
+        
+        # Verificar que el usuario existe
+        cursor.execute("SELECT Usuario FROM Registros WHERE Usuario = ?", (usuario,))
+        if not cursor.fetchone():
+            return {"success": False, "error": "Usuario no válido"}, 403
+        
+        # Insertar la respuesta
+        cursor.execute("""
+            INSERT INTO RespuestasBlog (comentario_id, usuario, respuesta, fecha)
+            VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        """, (comentario_id, usuario, respuesta))
+        
+        conexion.commit()
+        
+        return {"success": True, "mensaje": "Respuesta publicada exitosamente"}
+    
+    except Exception as e:
+        print(f"Error al agregar respuesta: {e}")
+        return {"success": False, "error": "Error al publicar la respuesta"}, 500
+    finally:
+        if conexion:
+            conexion.close()
+
 # ============================================================================
 # PUNTO DE ENTRADA DE LA APLICACIÓN
 # ============================================================================
